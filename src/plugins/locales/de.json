@@ -1,0 +1,15 @@
+{
+  "navigation": {
+    "home": "Startseite",
+    "aboutUs": "Unser Unternehmen",
+    "temporaryWorkers": "Zeitarbeiter",
+    "certifiedSpecialists": "Zertifizierte Spezialisten",
+    "training": "Ausbildung",
+    "contactUs": "Kontaktieren Sie uns"
+  },
+  "languages": {
+    "de": "Deutsch",
+    "en": "Englisch",
+    "language": "Sprache"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "navigation": {
+    "home": "Home",
+    "aboutUs": "About Us",
+    "temporaryWorkers": "Temporary Workers",
+    "certifiedSpecialists": "Certified Specialists",
+    "training": "Training",
+    "contactUs": "Contact Us"
+  },
+  "languages": {
+    "de": "German",
+    "en": "English",
+    "language": "Language"
+  }
+}
