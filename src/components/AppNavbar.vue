@@ -1,90 +1,91 @@
 <template>
   <v-app-bar app fixed color="#333333" dark>
-    <!-- Логотип -->
-    <div class="logo">
-      <img
-        :src="logoImage"
-        alt="Logo"
-        style="max-height: 40px; max-width: 150px"
-      />
-    </div>
+    <!-- Navbar content wrapper -->
+    <div class="navbar-content">
+      <!-- Logo -->
+      <div class="logo">
+        <img
+          :src="logoImage"
+          alt="Logo"
+          style="max-height: 40px; max-width: 150px"
+        />
+      </div>
 
-    <!-- Spacer для выравнивания -->
-    <v-spacer></v-spacer>
+      <!-- Spacer -->
+      <v-spacer></v-spacer>
 
-    <!-- Бургер-меню для мобильных устройств -->
-    <v-app-bar-nav-icon
-      @click="drawer = !drawer"
-      class="d-md-none"
-    ></v-app-bar-nav-icon>
+      <!-- Burger menu for mobile devices -->
+      <v-app-bar-nav-icon
+        @click="drawer = !drawer"
+        class="d-md-none"
+      ></v-app-bar-nav-icon>
 
-    <!-- Навигационные вкладки для больших экранов -->
-    <div class="d-none d-md-flex nav-tabs">
-      <v-tabs
-        v-model="activeTab"
-        background-color="#333333"
-        dark
-        slider-color="#FFFFFF"
-      >
-        <v-tab
-          v-for="(item, index) in navItems"
-          :key="index"
-          :to="item.path"
-          :style="{ color: activeTab === index ? '#FFFFFF' : '#AFAFAF' }"
-        >
-          {{ $t(item.label) }}
-        </v-tab>
-      </v-tabs>
-    </div>
-
-    <!-- Переключатель языков для больших экранов -->
-    <v-menu offset-y>
-      <template v-slot:activator="{ props }">
-        <v-btn v-bind="props">
-          <v-avatar size="24" class="mr-2">
-            <v-img :src="currentLanguage.flag"></v-img>
-          </v-avatar>
-          <span style="color: #afafaf">{{ currentLanguage.name }}</span>
+      <!-- Navigation links for desktop -->
+      <div class="nav-links d-none d-md-flex">
+        <v-btn variant="text" :to="'/unsere-dienstleistungen'" class="nav-link">
+          Unsere Dienstleistungen
         </v-btn>
-      </template>
-      <v-list>
-        <v-list-item
-          v-for="(lang, index) in languages"
-          :key="index"
-          @click="changeLanguage(lang)"
-          :prepend-avatar="lang.flag"
-        >
-          <v-list-item-title>{{ lang.name }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
+        <v-btn variant="text" :to="'/ueber-uns'" class="nav-link">
+          Über uns
+        </v-btn>
+        <!-- Kontaktieren Sie uns button -->
+        <v-btn :to="'/kontaktieren-sie-uns'" class="nav-button">
+          Kontaktieren Sie uns
+        </v-btn>
+      </div>
+
+      <!-- Language switcher -->
+      <v-menu offset-y>
+        <template v-slot:activator="{ props }">
+          <v-btn v-bind="props" class="language-btn">
+            <v-avatar size="24">
+              <v-img :src="currentLanguage?.flag"></v-img>
+            </v-avatar>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(lang, index) in languages"
+            :key="index"
+            @click="changeLanguage(lang)"
+          >
+            <v-list-item-avatar>
+              <v-img :src="lang.flag"></v-img>
+            </v-list-item-avatar>
+            <v-list-item-title>{{ lang.name }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </div>
   </v-app-bar>
 
-  <!-- Боковое меню для мобильных устройств -->
+  <!-- Navigation drawer for mobile -->
   <v-navigation-drawer v-model="drawer" app temporary class="d-md-none">
-    <!-- Список навигации -->
     <v-list dense>
+      <!-- Navigation links -->
       <v-list-item
-        v-for="(item, index) in navItems"
+        v-for="(item, index) in mobileNavItems"
         :key="index"
         @click="navigateTo(item.path)"
       >
-        <v-list-item-title>{{ $t(item.label) }}</v-list-item-title>
+        <v-list-item-title>{{ item.label }}</v-list-item-title>
       </v-list-item>
     </v-list>
 
-    <!-- Разделитель -->
+    <!-- Divider -->
     <v-divider></v-divider>
 
-    <!-- Переключатель языков -->
+    <!-- Language switcher -->
     <v-list dense>
-      <v-subheader>{{ $t("languages.language") }}</v-subheader>
+      <v-subheader>Sprache</v-subheader>
       <v-list-item
         v-for="(lang, index) in languages"
         :key="index"
         @click="changeLanguage(lang)"
-        :prepend-avatar="lang.flag"
       >
+        <v-list-item-avatar>
+          <v-img :src="lang.flag"></v-img>
+        </v-list-item-avatar>
         <v-list-item-title>{{ lang.name }}</v-list-item-title>
       </v-list-item>
     </v-list>
@@ -99,98 +100,104 @@ import germanyFlag from "@/assets/germany-flag.png";
 import usaFlag from "@/assets/usa-flag.png";
 import logoImage from "@/assets/logo.png";
 
-// Маршрутизатор
+// Router
 const router = useRouter();
 
 // i18n
-const { locale, t } = useI18n();
+const { locale } = useI18n();
 
-// Состояние бокового меню
+// Drawer state
 const drawer = ref(false);
 
-// Список навигационных вкладок с путями и ключами локализации
-const navItems = [
-  { label: "navigation.home", path: "/" },
-  { label: "navigation.aboutUs", path: "/unser-unternehmen" },
-  { label: "navigation.temporaryWorkers", path: "/zeitarbeiter" },
-  {
-    label: "navigation.certifiedSpecialists",
-    path: "/zertifizierte-spezialisten",
-  },
-  { label: "navigation.training", path: "/ausbildung" },
-  { label: "navigation.contactUs", path: "/kontaktieren-sie-uns" },
+// Navigation links
+const navLinks = [
+  { label: "Unsere Dienstleistungen", path: "/unsere-dienstleistungen" },
+  { label: "Über uns", path: "/ueber-uns" },
 ];
 
-// Текущая активная вкладка
-const activeTab = ref(0);
+// For mobile, include the "Kontaktieren Sie uns" as well
+const mobileNavItems = [
+  { label: "Unsere Dienstleistungen", path: "/unsere-dienstleistungen" },
+  { label: "Über uns", path: "/ueber-uns" },
+  { label: "Kontaktieren Sie uns", path: "/kontaktieren-sie-uns" },
+];
 
-// Языковые настройки
+// Language settings
 const languages = [
   {
-    code: "en",
-    name: t("languages.en"),
-    flag: usaFlag,
+    code: "de",
+    name: "Deutsch",
+    flag: germanyFlag,
   },
   {
-    code: "de",
-    name: t("languages.de"),
-    flag: germanyFlag,
+    code: "en",
+    name: "English",
+    flag: usaFlag,
   },
 ];
 
-// Текущий язык
-const currentLanguage: any = ref(
+// Current language
+const currentLanguage = ref(
   languages.find((lang) => lang.code === locale.value)
 );
 
-// Следим за изменением локали, чтобы обновлять текущий язык и имена языков
+// Watch locale change
 watch(locale, (newLocale) => {
   currentLanguage.value = languages.find((lang) => lang.code === newLocale);
-  // Обновляем имена языков при смене локали
-  languages.forEach((language) => {
-    language.name = t(`languages.${language.code}`);
-  });
 });
 
-// Функция смены языка
+// Change language function
 function changeLanguage(lang: any) {
   locale.value = lang.code;
   localStorage.setItem("locale", lang.code);
 }
 
-// Функция навигации
+// Navigation function
 function navigateTo(path: string) {
   router.push(path);
-  drawer.value = false; // Закрываем меню после перехода
+  drawer.value = false; // Close drawer after navigation
 }
 </script>
 
 <style scoped>
+.navbar-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
 .logo {
   padding: 0 16px;
 }
 
-.nav-tabs {
-  flex: 1 1 auto;
+.nav-links {
   display: flex;
   align-items: center;
 }
 
-.v-tabs {
+.nav-link {
   color: #afafaf;
+  margin: 0 8px;
+  text-transform: none;
 }
 
-.v-tab {
-  min-width: 100px;
-}
-
-.v-tab:hover {
+.nav-link:hover {
   color: #ffffff !important;
 }
 
-.v-tab--active {
-  color: #ffffff !important;
+.nav-button {
+  margin-left: 16px;
+  background-color: #feca00;
+  color: #383838;
+  text-transform: none;
 }
+
+.language-btn {
+  margin-left: 16px;
+}
+
 .v-list-item__prepend {
   width: 14px !important;
 }
