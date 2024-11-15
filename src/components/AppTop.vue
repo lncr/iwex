@@ -18,7 +18,7 @@
           Personal für Ihre spezifischen Anforderungen – bundesweit und für Ihre
           Branche.
         </p>
-        <v-btn class="home-btn" large @click="onRequestPersonnel"
+        <v-btn class="home-btn" @click="onRequestPersonnel"
           >Jetzt Personal anfragen</v-btn
         >
       </v-col>

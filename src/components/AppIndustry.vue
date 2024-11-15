@@ -73,9 +73,7 @@
 
     <!-- Кнопка под слайдером -->
     <div class="slider-button">
-      <v-btn color="#FECA00" class="btn-center">
-        Jetzt Personal anfragen
-      </v-btn>
+      <v-btn class="btn-center"> Jetzt Personal anfragen </v-btn>
     </div>
   </div>
 </template>

@@ -15,18 +15,14 @@
 
     <!-- Слайдер карточек -->
     <div class="steps-carousel">
-      <v-carousel
-        v-model="carouselIndex"
-        hide-delimiters
-        height="auto"
-        :cycle="false"
-        :show-arrows="false"
-        class="custom-carousel"
-      >
-        <v-carousel-item
+      <div class="carousel-wrapper">
+        <div
+          class="carousel-item"
           v-for="(step, index) in steps"
           :key="index"
           :class="getSlideClass(index)"
+          @swipeleft="nextSlide"
+          @swiperight="prevSlide"
         >
           <div
             class="step-card"
@@ -41,8 +37,8 @@
             <h2 class="step-title">{{ step.title }}</h2>
             <p class="step-description">{{ step.description }}</p>
           </div>
-        </v-carousel-item>
-      </v-carousel>
+        </div>
+      </div>
     </div>
 
     <!-- Навигация слайдера -->
@@ -72,98 +68,59 @@ import { ref } from "vue";
 // Индекс текущего слайда
 const carouselIndex = ref(0);
 
-// Данные шагов (10 карточек)
 const steps = [
   {
     icon: require("@/assets/star.svg"),
-    title: "Bedarfsanalyse des Unternehmens:",
+    title: "Unterstützung nach der Einstellung:",
     description:
-      "Unsere Zusammenarbeit beginnt mit einer gründlichen Analyse Ihrer Unternehmensanforderungen. Wir prüfen die Spezifikationen Ihres Unternehmens, die Anforderungen der offenen Stellen und die notwendigen Kernkompetenzen der Kandidaten. Dieser Ansatz ermöglicht es uns, das ideale Kandidatenprofil klar zu definieren.",
+      "Unsere Arbeit endet nicht mit der Vertragsunterzeichnung. Wir begleiten sowohl Ihr Unternehmen als auch den Mitarbeiter, um eine erfolgreiche Eingliederung und langfristige Zusammenarbeit zu gewährleisten.",
   },
   {
     icon: require("@/assets/star.svg"),
-    title: "Bedarfsanalyse des Unternehmens:",
+    title: "Feedback und Begleitung:",
     description:
-      "Unsere Zusammenarbeit beginnt mit einer gründlichen Analyse Ihrer Unternehmensanforderungen. Wir prüfen die Spezifikationen Ihres Unternehmens, die Anforderungen der offenen Stellen und die notwendigen Kernkompetenzen der Kandidaten. Dieser Ansatz ermöglicht es uns, das ideale Kandidatenprofil klar zu definieren.",
+      "Wir sammeln Feedback nach jedem Interview und unterstützen Sie bei der Entscheidungsfindung. Unser Team koordiniert die Verhandlungen mit dem Kandidaten bis zur Vertragsunterzeichnung, um einen reibungslosen Abschluss des Prozesses zu gewährleisten.",
   },
   {
     icon: require("@/assets/star.svg"),
-    title: "Bedarfsanalyse des Unternehmens:",
+    title: "Organisation und Koordination von Vorstellungsgesprächen:",
     description:
-      "Unsere Zusammenarbeit beginnt mit einer gründlichen Analyse Ihrer Unternehmensanforderungen. Wir prüfen die Spezifikationen Ihres Unternehmens, die Anforderungen der offenen Stellen und die notwendigen Kernkompetenzen der Kandidaten. Dieser Ansatz ermöglicht es uns, das ideale Kandidatenprofil klar zu definieren.",
+      "Wir übernehmen die Organisation der Interviews und passen uns Ihrem Zeitplan an, um eine effiziente Kommunikation zwischen Ihnen und den Bewerbern zu gewährleisten.",
   },
   {
     icon: require("@/assets/star.svg"),
-    title: "Bedarfsanalyse des Unternehmens:",
+    title: "Präsentation der besten Kandidaten:",
     description:
-      "Unsere Zusammenarbeit beginnt mit einer gründlichen Analyse Ihrer Unternehmensanforderungen. Wir prüfen die Spezifikationen Ihres Unternehmens, die Anforderungen der offenen Stellen und die notwendigen Kernkompetenzen der Kandidaten. Dieser Ansatz ermöglicht es uns, das ideale Kandidatenprofil klar zu definieren.",
+      "Nach der Vorauswahl stellen wir Ihnen die besten Kandidaten mit detaillierten Lebensläufen und unseren Empfehlungen vor. So erhalten Sie ein umfassendes Bild von jedem Kandidaten, bevor Sie ihn zu einem Gespräch einladen.",
   },
   {
     icon: require("@/assets/star.svg"),
-    title: "Bedarfsanalyse des Unternehmens:",
+    title: "Vorauswahl und Interviews:",
     description:
-      "Unsere Zusammenarbeit beginnt mit einer gründlichen Analyse Ihrer Unternehmensanforderungen. Wir prüfen die Spezifikationen Ihres Unternehmens, die Anforderungen der offenen Stellen und die notwendigen Kernkompetenzen der Kandidaten. Dieser Ansatz ermöglicht es uns, das ideale Kandidatenprofil klar zu definieren.",
+      "Unsere erfahrenen Recruiter führen erste Auswahlrunden durch, einschließlich Interviews und Qualifikationsprüfungen. Wir bewerten die beruflichen Fähigkeiten, Erfahrungen und persönlichen Eigenschaften der Kandidaten, um sicherzustellen, dass sie Ihren Anforderungen entsprechen.",
   },
-  {
-    icon: require("@/assets/star.svg"),
-    title: "Bedarfsanalyse des Unternehmens:",
-    description:
-      "Unsere Zusammenarbeit beginnt mit einer gründlichen Analyse Ihrer Unternehmensanforderungen. Wir prüfen die Spezifikationen Ihres Unternehmens, die Anforderungen der offenen Stellen und die notwendigen Kernkompetenzen der Kandidaten. Dieser Ansatz ermöglicht es uns, das ideale Kandidatenprofil klar zu definieren.",
-  },
-  {
-    icon: require("@/assets/star.svg"),
-    title: "Bedarfsanalyse des Unternehmens:",
-    description:
-      "Unsere Zusammenarbeit beginnt mit einer gründlichen Analyse Ihrer Unternehmensanforderungen. Wir prüfen die Spezifikationen Ihres Unternehmens, die Anforderungen der offenen Stellen und die notwendigen Kernkompetenzen der Kandidaten. Dieser Ansatz ermöglicht es uns, das ideale Kandidatenprofil klar zu definieren.",
-  },
-  {
-    icon: require("@/assets/star.svg"),
-    title: "Bedarfsanalyse des Unternehmens:",
-    description:
-      "Unsere Zusammenarbeit beginnt mit einer gründlichen Analyse Ihrer Unternehmensanforderungen. Wir prüfen die Spezifikationen Ihres Unternehmens, die Anforderungen der offenen Stellen und die notwendigen Kernkompetenzen der Kandidaten. Dieser Ansatz ermöglicht es uns, das ideale Kandidatenprofil klar zu definieren.",
-  },
-  {
-    icon: require("@/assets/star.svg"),
-    title: "Bedarfsanalyse des Unternehmens:",
-    description:
-      "Unsere Zusammenarbeit beginnt mit einer gründlichen Analyse Ihrer Unternehmensanforderungen. Wir prüfen die Spezifikationen Ihres Unternehmens, die Anforderungen der offenen Stellen und die notwendigen Kernkompetenzen der Kandidaten. Dieser Ansatz ermöglicht es uns, das ideale Kandidatenprofil klar zu definieren.",
-  },
-  {
-    icon: require("@/assets/star.svg"),
-    title: "Bedarfsanalyse des Unternehmens:",
-    description:
-      "Unsere Zusammenarbeit beginnt mit einer gründlichen Analyse Ihrer Unternehmensanforderungen. Wir prüfen die Spezifikationen Ihres Unternehmens, die Anforderungen der offenen Stellen und die notwendigen Kernkompetenzen der Kandidaten. Dieser Ansatz ermöglicht es uns, das ideale Kandidatenprofil klar zu definieren.",
-  },
-  // Добавьте остальные 9 карточек с соответствующими данными и иконками
 ];
 
 // Функции навигации слайдера
 function prevSlide() {
-  if (carouselIndex.value > 0) {
-    carouselIndex.value--;
-  }
+  carouselIndex.value = (carouselIndex.value - 1 + steps.length) % steps.length;
 }
 
 function nextSlide() {
-  if (carouselIndex.value < steps.length - 1) {
-    carouselIndex.value++;
-  }
+  carouselIndex.value = (carouselIndex.value + 1) % steps.length;
 }
 
 // Классы для слайдов
 function getSlideClass(index: number) {
   if (index === carouselIndex.value) {
     return "active-slide";
+  } else if (index === (carouselIndex.value + 1) % steps.length) {
+    return "next-slide";
   } else if (
-    index === carouselIndex.value - 1 ||
-    (carouselIndex.value === 0 && index === steps.length - 1)
+    index ===
+    (carouselIndex.value - 1 + steps.length) % steps.length
   ) {
     return "prev-slide";
-  } else if (
-    index === carouselIndex.value + 1 ||
-    (carouselIndex.value === steps.length - 1 && index === 0)
-  ) {
-    return "next-slide";
   } else {
     return "hidden-slide";
   }
@@ -174,6 +131,7 @@ function getSlideClass(index: number) {
 .container {
   text-align: center;
   margin-top: 120px;
+  overflow: visible;
 }
 
 .section-header {
@@ -196,30 +154,66 @@ function getSlideClass(index: number) {
 
 .steps-carousel {
   position: relative;
-}
-
-.custom-carousel {
+  width: 100%;
   overflow: visible;
+  margin-bottom: 20px;
 }
 
-.v-carousel-item {
+.carousel-wrapper {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  perspective: 1000px;
+}
+
+.carousel-item {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 80%;
+  transform-style: preserve-3d;
   transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.active-slide {
+  transform: translateX(-50%) translateZ(0px) scale(1);
+  opacity: 1;
+  z-index: 3;
+}
+
+.prev-slide {
+  transform: translateX(-110%) translateZ(-150px) scale(0.9);
+  opacity: 0.7;
+  z-index: 2;
+}
+
+.next-slide {
+  transform: translateX(10%) translateZ(-150px) scale(0.9);
+  opacity: 0.7;
+  z-index: 2;
+}
+
+.hidden-slide {
+  opacity: 0;
+  z-index: 1;
+  display: none;
 }
 
 .step-card {
   background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
   padding: 30px;
   border-radius: 10px;
   max-width: 600px;
   margin: 0 auto;
   position: relative;
+  overflow: visible;
 }
 
 .step-icon {
   position: absolute;
-  top: -30px;
-  left: -30px;
+  top: 20px;
+  left: 20px;
   width: 60px;
   height: 60px;
 }
@@ -229,8 +223,9 @@ function getSlideClass(index: number) {
   font-weight: 700;
   font-family: "Epilogue", sans-serif;
   color: #333333;
-  margin-top: 40px;
+  margin-top: 100px;
   margin-bottom: 20px;
+  text-align: left;
 }
 
 .step-description {
@@ -238,23 +233,7 @@ function getSlideClass(index: number) {
   font-family: "Open Sans", sans-serif;
   color: #515151;
   line-height: 1.6;
-}
-
-/* Стили для активного слайда */
-.active-slide {
-  transform: scale(1);
-  opacity: 1;
-}
-
-.prev-slide,
-.next-slide {
-  transform: scale(0.8);
-  opacity: 0.5;
-  background-color: #dedede;
-}
-
-.hidden-slide {
-  display: none;
+  text-align: left;
 }
 
 /* Кнопки навигации */
@@ -289,16 +268,18 @@ function getSlideClass(index: number) {
 
 /* Адаптация иконок в карточках */
 .active-card .step-icon {
-  top: -30px;
-  left: -30px;
   width: 60px;
   height: 60px;
 }
 
 .step-card:not(.active-card) .step-icon {
-  top: -20px;
-  left: -20px;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
+}
+
+/* Дополнительные стили для центровки боковых слайдов */
+.prev-slide .step-card,
+.next-slide .step-card {
+  margin-top: 25px;
 }
 </style>
