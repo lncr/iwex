@@ -2,16 +2,8 @@
   <div class="company-info">
     <div class="container">
       <div class="text-section">
-        <h2 class="title">
-          Die Geschichte von <span class="highlight">IWEX</span>
-        </h2>
-        <p class="description">
-          <!-- Здесь разместите описание истории и миссии компании -->
-          IWEX wurde gegründet mit dem Ziel, Unternehmen dabei zu unterstützen,
-          qualifiziertes Personal aus Kirgisistan zu finden. Unsere Mission ist
-          es, Brücken zwischen Kulturen zu bauen und die besten Talente mit den
-          richtigen Unternehmen zu verbinden.
-        </p>
+        <h2 class="title">{{ $t("company.title") }}</h2>
+        <p class="description">{{ $t("company.description") }}</p>
         <div class="signature">
           <img :src="signatureImage" alt="Signature" class="signature-image" />
           <p class="founder"><strong>Nurdin Sheishenov</strong><br />CEO</p>
@@ -28,12 +20,13 @@
 
 <script setup lang="ts">
 import signatureImage from "@/assets/signature.png";
-import founderImage from "@/assets/Container.png";
+import founderImage from "@/assets/container.png";
 </script>
 
 <style scoped lang="scss">
 .company-info {
-  padding: 60px 20px;
+  padding: 0 20px;
+  margin-top: 120px;
 
   .container {
     display: flex;
@@ -51,17 +44,13 @@ import founderImage from "@/assets/Container.png";
     .title {
       font-size: 36px;
       font-weight: 700;
-      color: #333333;
+      color: rgba(45, 59, 66, 1);
       margin-bottom: 20px;
-
-      .highlight {
-        color: #555555; // Темно-серый цвет для акцента на "IWEX"
-      }
     }
 
     .description {
       font-size: 18px;
-      color: #666666;
+      color: rgba(121, 121, 121, 1);
       line-height: 1.6;
       margin-bottom: 30px;
     }

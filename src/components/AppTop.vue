@@ -9,27 +9,31 @@
             alt="Star Icon"
             class="star-icon"
           />
-
-          <span class="title-text">Personalvermittlung</span>
+          <span class="title-text">{{ $t("appTop.text") }}</span>
         </div>
-        <h1 class="title">Sie suchen Mitarbeiter?</h1>
+        <h1 class="title">{{ $t("appTop.title") }}</h1>
         <p class="description">
-          Als Spezialist für Personalvermittlung findet IWEX das passende
-          Personal für Ihre spezifischen Anforderungen – bundesweit und für Ihre
-          Branche.
+          {{ $t("appTop.description") }}
         </p>
-        <v-btn class="home-btn" @click="onRequestPersonnel"
-          >Jetzt Personal anfragen</v-btn
-        >
+        <v-btn class="home-btn" @click="onRequestPersonnel">{{
+          $t("button")
+        }}</v-btn>
       </v-col>
 
       <!-- Right Side Image Section -->
-      <v-col cols="8" md="8" class="image-section">
-        <v-img
-          src="@/assets/SVG.svg"
-          alt="IWEX Mitarbeiter"
-          class="employee-image"
-        />
+      <v-col cols="7" md="7" class="image-section">
+        <div class="image-wrapper">
+          <v-img
+            src="@/assets/SVG.svg"
+            alt="IWEX Mitarbeiter"
+            class="employee-image"
+          />
+          <v-img
+            src="@/assets/girl.png"
+            alt="Overlay Image"
+            class="overlay-image"
+          />
+        </div>
       </v-col>
     </v-row>
 
@@ -37,26 +41,24 @@
     <v-row class="stats-section" justify="center" align="center">
       <v-col cols="5" md="5" class="stat">
         <div class="iwex-col">
-          <span class="iwex">IWEX</span>
-          <span class="iwex-yel">Zufriedene Partner in ganz Deutschland</span>
+          <span class="iwex">{{ $t("appTop.companyName") }}</span>
+          <span class="iwex-yel">{{ $t("appTop.underTitle") }}</span>
           <p>
-            IWEX hat es sich zum Ziel gesetzt, eine wertvolle Verbindung
-            zwischen Studenten, insbesondere aus Kirgistan und Zentralasien, und
-            dem deutschen Arbeitsmarkt herzustellen.
+            {{ $t("appTop.companyDesc") }}
           </p>
         </div>
       </v-col>
       <v-col cols="3" md="3" class="stat">
         <h2>2500</h2>
-        <p>vermittelte Studenten</p>
+        <p>{{ $t("appTop.students") }}</p>
       </v-col>
       <v-col cols="1" md="1" class="stat">
         <h2>35</h2>
-        <p>Partner</p>
+        <p>{{ $t("appTop.partner") }}</p>
       </v-col>
       <v-col cols="3" md="3" class="stat">
         <h2>2022</h2>
-        <p>Firmengründung</p>
+        <p>{{ $t("appTop.year") }}</p>
       </v-col>
     </v-row>
   </v-container>
@@ -164,5 +166,14 @@ export default {
       font-family: Open Sans;
     }
   }
+}
+.image-wrapper {
+  position: relative;
+}
+.overlay-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 </style>

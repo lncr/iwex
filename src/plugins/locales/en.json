@@ -1,15 +1,69 @@
 {
   "navigation": {
-    "home": "Home",
-    "aboutUs": "About Us",
-    "temporaryWorkers": "Temporary Workers",
-    "certifiedSpecialists": "Certified Specialists",
-    "training": "Training",
+    "services": "Our services",
+    "aboutUs": "About us",
     "contactUs": "Contact Us"
   },
   "languages": {
     "de": "German",
     "en": "English",
     "language": "Language"
-  }
+  },
+  "appTop": {
+    "text": "Staffing services",
+    "title": "Are you looking for employees?",
+    "description": "As a staffing specialist, IWEX finds the right personnel for your specific needs – nationwide and across all industries.",
+    "companyName": "IWEX",
+    "underTitle": "Satisfied partners across Germany",
+    "companyDesc": "IWEX aims to establish a valuable connection between students, particularly from Kyrgyzstan and Central Asia, and the German job market.",
+    "students": "Recruited students",
+    "partner": "Partners",
+    "year": "Company formation"
+  },
+  "services": {
+    "title": "Welcome to IWEX<br /> Here are our top 4 staffing services",
+    "description": "Since 2014, we have been connecting motivated students and workers from Kyrgyzstan with German companies to tackle the challenges of the skilled labor shortage together. With our expertise and commitment to excellent service, we are setting new standards in the placement of temporary and permanent jobs as well as training positions."
+  },
+  "industry": {
+    "title": "We operate in<br /> these areas!",
+    "circle": "Students available<br />for direct placement"
+  },
+  "steps": {
+    "title": "This is how easy it is to<br />request staff at IWEX.",
+    "card1Title": "Support after hiring:",
+    "card1Desc": "Our work doesn't end with the signing of the contract. We support both your company and the employee to ensure successful integration and long-term collaboration.",
+    "card2Title": "Feedback and support:",
+    "card2Desc": "We collect feedback after each interview and assist you in the decision-making process. Our team coordinates negotiations with the candidate until the contract is signed, ensuring a smooth completion of the process.",
+    "card3Title": "Organization and coordination of interviews:",
+    "card3Desc": "We handle the organization of interviews and adjust to your schedule to ensure efficient communication between you and the candidates.",
+    "card4Title": "Presentation of the best candidates:",
+    "card4Desc": "After the pre-selection, we present the best candidates along with detailed resumes and our recommendations. This gives you a comprehensive overview of each candidate before inviting them for an interview.",
+    "card5Title": "Pre-selection and interviews:",
+    "card5Desc": "Our experienced recruiters conduct initial selection rounds, including interviews and skill assessments. We evaluate candidates' professional abilities, experience, and personal qualities to ensure they meet your requirements."
+  },
+  "banner": {
+    "title": {
+      "part1": "Contact IWEX now – your reliable",
+      "highlight": "recruitment agency",
+      "part2": "from",
+      "part3": "Kyrgyzstan"
+    },
+    "description": "Send us an email. We will get back to you<br />promptly with an offer."
+  },
+  "company": {
+    "title": "The story of IWEX",
+    "description": "Nurdin Sheishenov, a graduate in logistics from a German-Kyrgyz university, founded IWEX Germany in 2014 and has been leading the company with a focus on international recruitment and training ever since. His personal journey as a former au pair and his experience as an entrepreneur shape his vision of providing talented students from Kyrgyzstan with access to the German job market."
+  },
+  "contacts": {
+    "title": "Contact<br/>us now",
+    "subtitle": "Send us an email. We will get back to you promptly with an offer."
+  },
+  "footer": {
+    "contact": "Contact",
+    "tel": "Tel",
+    "mob": "Mobil",
+    "link": "Follow us",
+    "adresse": "Address"
+  },
+  "button": "Request staff now"
 }
