@@ -2,15 +2,12 @@
   <div class="container">
     <!-- Заголовок и круг с текстом -->
     <div class="section-header">
-      <span class="section-title">
-        In diesen Bereichen<br />
-        sind wir tätig!
-      </span>
+      <span class="section-title" v-html="$t('industry.title')"></span>
       <div class="circle-text">
-        <span class="two"
-          ><p>200</p>
-          Studenten<br />direkt vermittelbar</span
-        >
+        <span class="two">
+          <p>200</p>
+          <span v-html="$t('industry.circle')"></span>
+        </span>
       </div>
     </div>
 
@@ -18,109 +15,76 @@
     <div class="industries">
       <div
         class="industry-item"
-        v-for="(industry, index) in industries"
-        :key="index"
+        v-for="industry in industries"
+        :key="industry.id"
       >
-        <img :src="industry.icon" :alt="industry.name" class="industry-icon" />
+        <img
+          :src="getIconUrl(industry.icon)"
+          :alt="industry.name"
+          class="industry-icon"
+        />
         <p class="industry-name">{{ industry.name }}</p>
       </div>
     </div>
 
-    <!-- Галерея изображений слайдер -->
+    <!-- Галерея изображений -->
     <div class="gallery-section">
-      <!-- Слайдер изображений -->
-      <v-carousel
-        :show-arrows="false"
-        v-model="carouselIndex"
-        hide-delimiters
-        :cycle="false"
-      >
-        <v-carousel-item v-for="(imageSet, i) in galleryImages" :key="i">
-          <div class="gallery-images">
-            <img :src="imageSet.main" alt="Main Image" class="main-image" />
-            <div class="side-images">
-              <img
-                v-for="(img, idx) in imageSet.side"
-                :key="idx"
-                :src="img"
-                alt="Side Image"
-                class="side-image"
-              />
-            </div>
-          </div>
-        </v-carousel-item>
-      </v-carousel>
-
-      <!-- Навигация слайдера -->
-      <div class="carousel-navigation">
-        <div class="carousel-dots">
-          <span
-            v-for="(dot, index) in galleryImages.length"
-            :key="index"
-            :class="{ active: index === carouselIndex }"
-          ></span>
-        </div>
-        <div class="carousel-buttons">
-          <v-btn icon @click="prevSlide">
-            <v-icon>mdi-chevron-left</v-icon>
-          </v-btn>
-          <v-btn icon @click="nextSlide">
-            <v-icon>mdi-chevron-right</v-icon>
-          </v-btn>
-        </div>
+      <div class="gallery-images">
+        <!-- Все три изображения -->
+        <img :src="mainImage" alt="Main Image" class="gallery-image" />
+        <img :src="sideImage1" alt="Side Image 1" class="gallery-image" />
+        <img :src="sideImage2" alt="Side Image 2" class="gallery-image" />
       </div>
     </div>
 
-    <!-- Кнопка под слайдером -->
+    <!-- Кнопка под галереей -->
     <div class="slider-button">
-      <v-btn class="btn-center"> Jetzt Personal anfragen </v-btn>
+      <v-btn class="btn-center">{{ $t("button") }}</v-btn>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import api from "@/plugins/api";
+import { onMounted, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 
-// Данные индустрий
-const industries = [
-  { name: "Tourismus", icon: require("@/assets/tourism.svg") },
-  { name: "Logistik", icon: require("@/assets/logistic.svg") },
-  {
-    name: "System Gastronomie",
-    icon: require("@/assets/gastronomy.svg"),
-    class: "line-break",
-  },
-  { name: "Flughafen", icon: require("@/assets/air.svg") },
-  { name: "Hotel", icon: require("@/assets/hotel.svg") },
-];
+// Импортируем изображения
+import mainImage from "@/assets/photo1.png";
+import sideImage1 from "@/assets/photo2.png";
+import sideImage2 from "@/assets/photo3.png";
 
-// Данные галереи изображений
-const galleryImages = [
-  {
-    main: require("@/assets/photo1.png"),
-    side: [require("@/assets/photo2.png"), require("@/assets/photo3.png")],
-  },
-  {
-    main: require("@/assets/photo1.png"),
-    side: [require("@/assets/photo2.png"), require("@/assets/photo3.png")],
-  },
-];
+const { locale } = useI18n();
+const industries = ref<Array<any>>([]);
 
-// Индекс текущего слайда
-const carouselIndex = ref(0);
+function getIconUrl(iconPath: string) {
+  if (iconPath.startsWith("http")) {
+    return iconPath;
+  }
+  const baseUrl = process.env.VUE_APP_BASE_URL || "http://159.223.21.167";
+  return `${baseUrl}${iconPath}`;
+}
 
-// Функции навигации слайдера
-function prevSlide() {
-  if (carouselIndex.value > 0) {
-    carouselIndex.value--;
+async function loadIndustries(language: string) {
+  try {
+    const response = await api.get("/api/v1/workareas/", {
+      params: {
+        lng: language,
+      },
+    });
+    industries.value = response.data;
+  } catch (error) {
+    console.error("Ошибка при загрузке данных индустрий:", error);
   }
 }
 
-function nextSlide() {
-  if (carouselIndex.value < galleryImages.length - 1) {
-    carouselIndex.value++;
-  }
-}
+watch(locale, (newLocale) => {
+  loadIndustries(newLocale);
+});
+
+onMounted(() => {
+  loadIndustries(locale.value);
+});
 </script>
 
 <style scoped lang="scss">
@@ -158,7 +122,7 @@ function nextSlide() {
     font-weight: 700;
     font-size: 15px;
     text-align: center;
-    P {
+    p {
       font-size: 72px;
     }
   }
@@ -188,11 +152,13 @@ function nextSlide() {
 
 .gallery-section {
   position: relative;
+  margin-bottom: 40px; /* Добавляем отступ снизу */
 }
 
 .gallery-images {
   display: flex;
   gap: 24px;
+  justify-content: center; /* Центруем галерею */
 }
 
 .main-image {
@@ -203,50 +169,16 @@ function nextSlide() {
 }
 
 .side-images {
-  max-width: 315px;
   display: flex;
+  flex-direction: column;
   gap: 24px;
 }
 
 .side-image {
-  max-width: 100%;
+  max-width: 315px;
+  width: 100%;
   height: auto;
-  margin-bottom: 10px;
   border-radius: 10px;
-}
-
-.carousel-navigation {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-  flex-direction: column;
-}
-
-.carousel-dots {
-  display: flex;
-  margin-bottom: 10px;
-}
-
-.carousel-dots span {
-  display: block;
-  width: 10px;
-  height: 10px;
-  background-color: #ccc;
-  margin: 0 5px;
-  border-radius: 50%;
-}
-
-.carousel-dots .active {
-  background-color: #000000;
-}
-
-.carousel-buttons {
-  display: flex;
-}
-
-.carousel-buttons .v-btn {
-  margin: 0 10px;
 }
 
 .slider-button {

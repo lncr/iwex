@@ -1,15 +1,69 @@
 {
   "navigation": {
-    "home": "Startseite",
-    "aboutUs": "Unser Unternehmen",
-    "temporaryWorkers": "Zeitarbeiter",
-    "certifiedSpecialists": "Zertifizierte Spezialisten",
-    "training": "Ausbildung",
+    "services": "Unsere Dienstleistungen",
+    "aboutUs": "Über uns",
     "contactUs": "Kontaktieren Sie uns"
   },
   "languages": {
     "de": "Deutsch",
     "en": "Englisch",
     "language": "Sprache"
-  }
+  },
+  "appTop": {
+    "text": "Personalvermittlung",
+    "title": "Sie suchen Mitarbeiter?",
+    "description": "Als Spezialist für Personalvermittlung findet IWEX das passende Personal für Ihre spezifischen Anforderungen – bundesweit und für Ihre Branche.",
+    "companyName": "IWEX",
+    "underTitle": "Zufriedene Partner in ganz Deutschland",
+    "companyDesc": "IWEX hat es sich zum Ziel gesetzt, eine wertvolle Verbindung zwischen Studenten, insbesondere aus Kirgistan und Zentralasien, und dem deutschen Arbeitsmarkt herzustellen.",
+    "students": "vermittelte Studenten",
+    "partner": "Partner",
+    "year": "Firmengründung"
+  },
+  "services": {
+    "title": "Willkommen bei IWEX<br /> Das sind unsere Top-4 Personaldienstleistungen",
+    "description": "Seit 2014 verbinden wir motivierte Studenten und Arbeitskräfte aus Kirgisistan mit deutschen Unternehmen, um gemeinsam die Herausforderungen des Fachkräftemangels zu bewältigen. Mit unserer Expertise und unserem Engagement für exzellenten Service setzen wir neue Maßstäbe in der Vermittlung von temporären und langfristigen Arbeitsplätzen sowie Ausbildungsplätzen."
+  },
+  "industry": {
+    "title": "In diesen Bereichen<br />sind wir tätig!",
+    "circle": "Studenten<br />direkt vermittelbar"
+  },
+  "steps": {
+    "title": "So einfach können Sie<br />bei IWEX Mitarbeiter anfragen",
+    "card1Title": "Unterstützung nach der Einstellung:",
+    "card1Desc": "Unsere Arbeit endet nicht mit der Vertragsunterzeichnung. Wir begleiten sowohl Ihr Unternehmen als auch den Mitarbeiter, um eine erfolgreiche Eingliederung und langfristige Zusammenarbeit zu gewährleisten.",
+    "card2Title": "Feedback und Begleitung:",
+    "card2Desc": "Wir sammeln Feedback nach jedem Interview und unterstützen Sie bei der Entscheidungsfindung. Unser Team koordiniert die Verhandlungen mit dem Kandidaten bis zur Vertragsunterzeichnung, um einen reibungslosen Abschluss des Prozesses zu gewährleisten.",
+    "card3Title": "Organisation und Koordination von Vorstellungsgesprächen:",
+    "card3Desc": "Wir übernehmen die Organisation der Interviews und passen uns Ihrem Zeitplan an, um eine effiziente Kommunikation zwischen Ihnen und den Bewerbern zu gewährleisten.",
+    "card4Title": "Präsentation der besten Kandidaten:",
+    "card4Desc": "Nach der Vorauswahl stellen wir Ihnen die besten Kandidaten mit detaillierten Lebensläufen und unseren Empfehlungen vor. So erhalten Sie ein umfassendes Bild von jedem Kandidaten, bevor Sie ihn zu einem Gespräch einladen.",
+    "card5Title": "Vorauswahl und Interviews:",
+    "card5Desc": "Unsere erfahrenen Recruiter führen erste Auswahlrunden durch, einschließlich Interviews und Qualifikationsprüfungen. Wir bewerten die beruflichen Fähigkeiten, Erfahrungen und persönlichen Eigenschaften der Kandidaten, um sicherzustellen, dass sie Ihren Anforderungen entsprechen."
+  },
+  "banner": {
+    "title": {
+      "part1": "Kontaktieren Sie jetzt IWEX - Ihren",
+      "highlight": "verlässlichen Personalvermittler",
+      "part2": "aus",
+      "part3": "Kirgisistan"
+    },
+    "description": "Schreiben Sie uns eine E-Mail. Wir melden uns <br />umgehend mit einem Angebot bei Ihnen zurück."
+  },
+  "company": {
+    "title": "Die Geschichte von IWEX",
+    "description": "IWEX wurde gegründet mit dem Ziel, Unternehmen dabei zu unterstützen, qualifiziertes Personal aus Kirgisistan zu finden. Unsere Mission ist es, Brücken zwischen Kulturen zu bauen und die besten Talente mit den richtigen Unternehmen zu verbinden."
+  },
+  "contacts": {
+    "title": "Kontaktieren<br/>Sie uns jetzt",
+    "subtitle": "Schreiben Sie uns eine E-Mail. Wir melden uns umgehend mit einem Angebot bei Ihnen zurück."
+  },
+  "footer": {
+    "contact": "Kontakt",
+    "tel": "Tel",
+    "mob": "Mobil",
+    "link": "Folgen Sie uns",
+    "adresse": "Adresse"
+  },
+  "button": "Jetzt Personal anfragen"
 }

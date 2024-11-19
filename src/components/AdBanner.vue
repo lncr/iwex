@@ -3,16 +3,17 @@
     <div class="overlay">
       <div class="content">
         <h1 class="headline">
-          Kontaktieren Sie jetzt IWEX - Ihren <br />
-          <span class="highlight">verlässlichen Personalvermittler</span>
-          aus <br />Kirgisistan
+          {{ $t("banner.title.part1") }} <br />
+          <span
+            ><span class="highlight">{{ $t("banner.title.highlight") }}</span>
+            {{ $t("banner.title.part2") }}
+          </span>
+          <br />
+          {{ $t("banner.title.part3") }}
         </h1>
-        <p class="subheadline">
-          Schreiben Sie uns eine E-Mail. Wir melden uns <br />umgehend mit einem
-          Angebot bei Ihnen zurück.
-        </p>
+        <p class="subheadline" v-html="$t('banner.description')"></p>
         <v-btn class="cta-button" @click="onButtonClick">
-          Jetzt Personal anfragen
+          {{ $t("button") }}
         </v-btn>
       </div>
     </div>

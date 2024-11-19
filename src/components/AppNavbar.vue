@@ -1,8 +1,8 @@
 <template>
   <v-app-bar app fixed color="#333333" dark>
-    <!-- Navbar content wrapper -->
+    <!-- Обёртка контента Navbar -->
     <div class="navbar-content">
-      <!-- Logo -->
+      <!-- Логотип -->
       <div class="logo">
         <img
           :src="logoImage"
@@ -11,155 +11,154 @@
         />
       </div>
 
-      <!-- Spacer -->
-      <v-spacer></v-spacer>
-
-      <!-- Burger menu for mobile devices -->
-      <v-app-bar-nav-icon
-        @click="drawer = !drawer"
-        class="d-md-none"
-      ></v-app-bar-nav-icon>
-
-      <!-- Navigation links for desktop -->
-      <div class="nav-links d-none d-md-flex">
-        <v-btn variant="text" :to="'/unsere-dienstleistungen'" class="nav-link">
-          Unsere Dienstleistungen
-        </v-btn>
-        <v-btn variant="text" :to="'/ueber-uns'" class="nav-link">
-          Über uns
-        </v-btn>
-        <!-- Kontaktieren Sie uns button -->
-        <v-btn :to="'/kontaktieren-sie-uns'" class="nav-button">
-          Kontaktieren Sie uns
-        </v-btn>
+      <!-- Навигационные ссылки для десктопа -->
+      <div class="nav-links-container d-none d-md-flex">
+        <div class="nav-links">
+          <v-btn
+            variant="text"
+            :to="'/unsere-dienstleistungen'"
+            class="nav-link"
+          >
+            {{ t("navigation.services") }}
+          </v-btn>
+          <v-btn variant="text" :to="'/ueber-uns'" class="nav-link">
+            {{ t("navigation.aboutUs") }}
+          </v-btn>
+          <!-- Кнопка "Kontaktieren Sie uns" -->
+          <v-btn :to="'/kontaktieren-sie-uns'" class="nav-button">
+            {{ t("navigation.contactUs") }}
+          </v-btn>
+        </div>
       </div>
 
-      <!-- Language switcher -->
-      <v-menu offset-y>
-        <template v-slot:activator="{ props }">
-          <v-btn v-bind="props" class="language-btn">
-            <v-avatar size="24">
-              <v-img :src="currentLanguage?.flag"></v-img>
-            </v-avatar>
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item
-            v-for="(lang, index) in languages"
-            :key="index"
-            @click="changeLanguage(lang)"
-          >
-            <v-list-item-avatar>
-              <v-img :src="lang.flag"></v-img>
-            </v-list-item-avatar>
-            <v-list-item-title>{{ lang.name }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+      <!-- Правые элементы: Переключатель языка и бургер-меню -->
+      <div class="right-items">
+        <!-- Переключатель языка -->
+        <v-menu offset-y>
+          <template v-slot:activator="{ props }">
+            <v-btn v-bind="props" class="language-btn">
+              <v-avatar size="24">
+                <v-img :src="currentLanguage?.flag"></v-img>
+              </v-avatar>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="(lang, index) in languages"
+              :key="index"
+              @click="changeLanguage(lang)"
+            >
+              <v-list-item-avatar>
+                <v-img :src="lang.flag"></v-img>
+              </v-list-item-avatar>
+              <v-list-item-title>{{ lang.name }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+
+        <!-- Бургер-меню для мобильных устройств -->
+        <v-app-bar-nav-icon
+          @click="drawer = !drawer"
+          class="d-md-none"
+        ></v-app-bar-nav-icon>
+      </div>
     </div>
   </v-app-bar>
 
-  <!-- Navigation drawer for mobile -->
+  <!-- Навигационный ящик для мобильных устройств -->
   <v-navigation-drawer v-model="drawer" app temporary class="d-md-none">
     <v-list dense>
-      <!-- Navigation links -->
+      <!-- Навигационные ссылки -->
       <v-list-item
         v-for="(item, index) in mobileNavItems"
         :key="index"
         @click="navigateTo(item.path)"
       >
-        <v-list-item-title>{{ item.label }}</v-list-item-title>
-      </v-list-item>
-    </v-list>
-
-    <!-- Divider -->
-    <v-divider></v-divider>
-
-    <!-- Language switcher -->
-    <v-list dense>
-      <v-subheader>Sprache</v-subheader>
-      <v-list-item
-        v-for="(lang, index) in languages"
-        :key="index"
-        @click="changeLanguage(lang)"
-      >
-        <v-list-item-avatar>
-          <v-img :src="lang.flag"></v-img>
-        </v-list-item-avatar>
-        <v-list-item-title>{{ lang.name }}</v-list-item-title>
+        <v-list-item-title>{{ t(item.labelKey) }}</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import germanyFlag from "@/assets/germany-flag.png";
 import usaFlag from "@/assets/usa-flag.png";
 import logoImage from "@/assets/logo.png";
 
-// Router
+// Маршрутизатор
 const router = useRouter();
 
 // i18n
-const { locale } = useI18n();
+const { locale, t } = useI18n();
 
-// Drawer state
+// Состояние навигационного ящика
 const drawer = ref(false);
 
-// Navigation links
+// Навигационные ссылки
 const navLinks = [
-  { label: "Unsere Dienstleistungen", path: "/unsere-dienstleistungen" },
-  { label: "Über uns", path: "/ueber-uns" },
+  { labelKey: "navigation.services", path: "/unsere-dienstleistungen" },
+  { labelKey: "navigation.aboutUs", path: "/ueber-uns" },
 ];
 
-// For mobile, include the "Kontaktieren Sie uns" as well
+// Для мобильных устройств, включаем "Kontaktieren Sie uns"
 const mobileNavItems = [
-  { label: "Unsere Dienstleistungen", path: "/unsere-dienstleistungen" },
-  { label: "Über uns", path: "/ueber-uns" },
-  { label: "Kontaktieren Sie uns", path: "/kontaktieren-sie-uns" },
+  { labelKey: "navigation.services", path: "/unsere-dienstleistungen" },
+  { labelKey: "navigation.aboutUs", path: "/ueber-uns" },
+  { labelKey: "navigation.contactUs", path: "/kontaktieren-sie-uns" },
 ];
 
-// Language settings
+// Настройки языка
 const languages = [
   {
-    code: "de",
+    code: "deu",
     name: "Deutsch",
     flag: germanyFlag,
   },
   {
-    code: "en",
+    code: "eng",
     name: "English",
     flag: usaFlag,
   },
 ];
 
-// Current language
+// Текущий язык
 const currentLanguage = ref(
-  languages.find((lang) => lang.code === locale.value)
+  languages.find((lang) => lang.code === locale.value) || languages[0]
 );
 
-// Watch locale change
-watch(locale, (newLocale) => {
-  currentLanguage.value = languages.find((lang) => lang.code === newLocale);
+// Установка локали из localStorage при загрузке компонента
+onMounted(() => {
+  const savedLocale = localStorage.getItem("locale");
+  if (savedLocale) {
+    locale.value = savedLocale;
+    currentLanguage.value =
+      languages.find((lang) => lang.code === savedLocale) || languages[0];
+  }
 });
 
-// Change language function
+// Отслеживание изменения локали
+watch(locale, (newLocale) => {
+  currentLanguage.value =
+    languages.find((lang) => lang.code === newLocale) || languages[0];
+});
+
+// Функция смены языка
 function changeLanguage(lang: any) {
   locale.value = lang.code;
   localStorage.setItem("locale", lang.code);
 }
 
-// Navigation function
+// Функция навигации
 function navigateTo(path: string) {
   router.push(path);
-  drawer.value = false; // Close drawer after navigation
+  drawer.value = false; // Закрыть навигационный ящик после навигации
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .navbar-content {
   display: flex;
   align-items: center;
@@ -168,11 +167,18 @@ function navigateTo(path: string) {
   margin: 0 auto;
 }
 
-.logo {
-  padding: 0 16px;
+.nav-links-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.right-items {
   display: flex;
   align-items: center;
 }
@@ -198,7 +204,23 @@ function navigateTo(path: string) {
   margin-left: 16px;
 }
 
-.v-list-item__prepend {
-  width: 14px !important;
+.v-list-item {
+  display: flex;
+  .v-list-item__content {
+    display: flex;
+    .v-img {
+      width: 20px;
+    }
+    .v-list-item-title {
+      color: #383838;
+    }
+  }
+}
+
+/* Обеспечить корректное отображение переключателя языка на мобильных устройствах */
+@media (max-width: 960px) {
+  .language-btn {
+    margin-left: 8px;
+  }
 }
 </style>

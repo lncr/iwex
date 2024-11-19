@@ -2,10 +2,7 @@
   <div class="container">
     <!-- Заголовок и иконка -->
     <div class="section-header">
-      <span class="section-title">
-        So einfach können Sie<br />
-        bei IWEX Mitarbeiter anfragen
-      </span>
+      <span class="section-title" v-html="$t('steps.title')"> </span>
       <v-img
         src="@/assets/stone.svg"
         alt="Semicircle Icon"
@@ -28,12 +25,10 @@
             class="step-card"
             :class="{ 'active-card': index === carouselIndex }"
           >
-            <img
-              :src="step.icon"
-              alt="Step Icon"
-              class="step-icon"
-              :class="{ 'active-icon': index === carouselIndex }"
-            />
+            <div class="icon-wrapper">
+              <img :src="step.icon" alt="Step Icon" class="step-icon" />
+              <img :src="step.innerIcon" alt="Inner Icon" class="inner-icon" />
+            </div>
             <h2 class="step-title">{{ step.title }}</h2>
             <p class="step-description">{{ step.description }}</p>
           </div>
@@ -63,64 +58,70 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useI18n } from "vue-i18n";
+
+// Импортируем иконки
+import starIcon from "@/assets/star.svg";
+import card1Svg from "@/assets/card1Svg.svg";
+import card2Svg from "@/assets/card2Svg.svg";
+import card3Svg from "@/assets/card3Svg.svg";
+import card4Svg from "@/assets/card4Svg.svg";
+import card5Svg from "@/assets/card5Svg.svg";
 
 // Индекс текущего слайда
 const carouselIndex = ref(0);
+const { t } = useI18n();
 
-const steps = [
+const steps = computed(() => [
   {
-    icon: require("@/assets/star.svg"),
-    title: "Unterstützung nach der Einstellung:",
-    description:
-      "Unsere Arbeit endet nicht mit der Vertragsunterzeichnung. Wir begleiten sowohl Ihr Unternehmen als auch den Mitarbeiter, um eine erfolgreiche Eingliederung und langfristige Zusammenarbeit zu gewährleisten.",
+    icon: starIcon,
+    innerIcon: card1Svg,
+    title: t("steps.card1Title"),
+    description: t("steps.card1Desc"),
   },
   {
-    icon: require("@/assets/star.svg"),
-    title: "Feedback und Begleitung:",
-    description:
-      "Wir sammeln Feedback nach jedem Interview und unterstützen Sie bei der Entscheidungsfindung. Unser Team koordiniert die Verhandlungen mit dem Kandidaten bis zur Vertragsunterzeichnung, um einen reibungslosen Abschluss des Prozesses zu gewährleisten.",
+    icon: starIcon,
+    innerIcon: card2Svg,
+    title: t("steps.card2Title"),
+    description: t("steps.card2Desc"),
   },
   {
-    icon: require("@/assets/star.svg"),
-    title: "Organisation und Koordination von Vorstellungsgesprächen:",
-    description:
-      "Wir übernehmen die Organisation der Interviews und passen uns Ihrem Zeitplan an, um eine effiziente Kommunikation zwischen Ihnen und den Bewerbern zu gewährleisten.",
+    icon: starIcon,
+    innerIcon: card3Svg,
+    title: t("steps.card3Title"),
+    description: t("steps.card3Desc"),
   },
   {
-    icon: require("@/assets/star.svg"),
-    title: "Präsentation der besten Kandidaten:",
-    description:
-      "Nach der Vorauswahl stellen wir Ihnen die besten Kandidaten mit detaillierten Lebensläufen und unseren Empfehlungen vor. So erhalten Sie ein umfassendes Bild von jedem Kandidaten, bevor Sie ihn zu einem Gespräch einladen.",
+    icon: starIcon,
+    innerIcon: card4Svg,
+    title: t("steps.card4Title"),
+    description: t("steps.card4Desc"),
   },
   {
-    icon: require("@/assets/star.svg"),
-    title: "Vorauswahl und Interviews:",
-    description:
-      "Unsere erfahrenen Recruiter führen erste Auswahlrunden durch, einschließlich Interviews und Qualifikationsprüfungen. Wir bewerten die beruflichen Fähigkeiten, Erfahrungen und persönlichen Eigenschaften der Kandidaten, um sicherzustellen, dass sie Ihren Anforderungen entsprechen.",
+    icon: starIcon,
+    innerIcon: card5Svg,
+    title: t("steps.card5Title"),
+    description: t("steps.card5Desc"),
   },
-];
+]);
 
 // Функции навигации слайдера
 function prevSlide() {
-  carouselIndex.value = (carouselIndex.value - 1 + steps.length) % steps.length;
+  carouselIndex.value =
+    (carouselIndex.value - 1 + steps.value.length) % steps.value.length;
 }
 
 function nextSlide() {
-  carouselIndex.value = (carouselIndex.value + 1) % steps.length;
+  carouselIndex.value = (carouselIndex.value + 1) % steps.value.length;
 }
 
-// Классы для слайдов
+// Функция определения класса для слайда
 function getSlideClass(index: number) {
   if (index === carouselIndex.value) {
     return "active-slide";
-  } else if (index === (carouselIndex.value + 1) % steps.length) {
+  } else if (index === (carouselIndex.value + 1) % steps.value.length) {
     return "next-slide";
-  } else if (
-    index ===
-    (carouselIndex.value - 1 + steps.length) % steps.length
-  ) {
-    return "prev-slide";
   } else {
     return "hidden-slide";
   }
@@ -137,7 +138,8 @@ function getSlideClass(index: number) {
 .section-header {
   position: relative;
   display: inline-block;
-  margin-bottom: 40px;
+  margin-bottom: 100px;
+  width: 740px;
   .section-title {
     font-size: 48px;
     font-weight: 700;
@@ -146,7 +148,7 @@ function getSlideClass(index: number) {
   }
   .semicircle-icon {
     position: absolute;
-    left: -140px;
+    left: -15%;
     top: -10px;
     width: 220px;
   }
@@ -181,14 +183,8 @@ function getSlideClass(index: number) {
   z-index: 3;
 }
 
-.prev-slide {
-  transform: translateX(-110%) translateZ(-150px) scale(0.9);
-  opacity: 0.7;
-  z-index: 2;
-}
-
 .next-slide {
-  transform: translateX(10%) translateZ(-150px) scale(0.9);
+  transform: translateX(20%) translateZ(-150px) scale(0.9);
   opacity: 0.7;
   z-index: 2;
 }
@@ -210,12 +206,45 @@ function getSlideClass(index: number) {
   overflow: visible;
 }
 
-.step-icon {
+.icon-wrapper {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  /* Позиция по умолчанию */
   width: 60px;
   height: 60px;
+  top: 20px;
+  left: 20px;
+}
+
+.step-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.inner-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  transform: translate(-50%, -50%);
+}
+
+/* Стили для активной карточки */
+.active-card .icon-wrapper {
+  width: 153px;
+  height: 153px;
+  top: -76.5px; /* Позиционируем иконку, чтобы она перекрывала верх */
+  left: -76.5px; /* Позиционируем иконку, чтобы она перекрывала левый край */
+  right: auto; /* Сбрасываем значение right */
+}
+
+.active-card .inner-icon {
+  width: 61px;
+  height: 61px;
+}
+
+.active-card .step-title {
+  margin-top: 100px;
 }
 
 .step-title {
@@ -236,7 +265,7 @@ function getSlideClass(index: number) {
   text-align: left;
 }
 
-/* Кнопки навигации */
+/* Навигация слайдера */
 .carousel-navigation {
   display: flex;
   flex-direction: column;
@@ -266,20 +295,8 @@ function getSlideClass(index: number) {
   margin: 0 5px;
 }
 
-/* Адаптация иконок в карточках */
-.active-card .step-icon {
-  width: 60px;
-  height: 60px;
-}
-
-.step-card:not(.active-card) .step-icon {
-  width: 50px;
-  height: 50px;
-}
-
-/* Дополнительные стили для центровки боковых слайдов */
-.prev-slide .step-card,
-.next-slide .step-card {
-  margin-top: 25px;
+/* Скрываем предыдущий слайд */
+.prev-slide {
+  display: none;
 }
 </style>
