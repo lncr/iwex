@@ -65,5 +65,30 @@
     "link": "Folgen Sie uns",
     "adresse": "Adresse"
   },
+  "form": {
+    "title": "Kontaktformular",
+    "description": "Haben Sie Fragen oder benötigen Sie weitere Informationen? Füllen Sie das untenstehende Formular aus, und wir werden uns so schnell wie möglich bei Ihnen melden.",
+    "fields": {
+      "name": "Vorname Nachname:",
+      "email": "E-Mail-Adresse:",
+      "phone": "Telefonnummer:",
+      "subject": "Betreff:",
+      "message": "Nachricht:"
+    },
+    "checkbox": "Ich stimme der Verarbeitung meiner Daten gemäß der Datenschutzerklärung zu.",
+    "submit": "Absenden",
+    "validation": {
+      "required": "Dieses Feld ist erforderlich.",
+      "email": "E-Mail muss gültig sein.",
+      "phone": "Telefon darf nur Zahlen enthalten",
+      "requiredCheckbox": "Sie müssen den Allgemeinen Geschäftsbedingungen zustimmen"
+    },
+    "success": "Formular erfolgreich abgeschickt!"
+  },
+  "impressum": {
+    "title": "Impressum",
+    "text": "<p><strong>IWEX Germany GmbH</strong><br>70 Hahnstr.<br>60528 Frankfurt</p><br><p>Handelsregister: HRB 128023<br>Registergericht: Amtsgericht Frankfurt am Main</p><br><p><strong>Vertreten durch:</strong><br>Nurdin Sheishenov</p><br><p><strong>Kontakt</strong></p><p>Telefon: 01792078900<br>E-Mail: info@iwex-personal.de</p><br><p><strong>Umsatzsteuer-ID</strong></p><p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: DE354603798</p><br><p><strong>Verbraucherstreitbeilegung/Universalschlichtungsstelle</strong></p><p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>"
+  },
+
   "button": "Jetzt Personal anfragen"
 }

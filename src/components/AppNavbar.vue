@@ -3,7 +3,7 @@
     <!-- Обёртка контента Navbar -->
     <div class="navbar-content">
       <!-- Логотип -->
-      <div class="logo">
+      <div class="logo" @click="navigateToHome">
         <img
           :src="logoImage"
           alt="Logo"
@@ -16,16 +16,20 @@
         <div class="nav-links">
           <v-btn
             variant="text"
-            :to="'/unsere-dienstleistungen'"
+            @click="scrollToSection('services')"
             class="nav-link"
           >
             {{ t("navigation.services") }}
           </v-btn>
-          <v-btn variant="text" :to="'/ueber-uns'" class="nav-link">
+          <v-btn
+            variant="text"
+            @click="scrollToSection('about-us')"
+            class="nav-link"
+          >
             {{ t("navigation.aboutUs") }}
           </v-btn>
           <!-- Кнопка "Kontaktieren Sie uns" -->
-          <v-btn :to="'/kontaktieren-sie-uns'" class="nav-button">
+          <v-btn @click="navigateToContact" class="nav-button">
             {{ t("navigation.contactUs") }}
           </v-btn>
         </div>
@@ -72,7 +76,7 @@
       <v-list-item
         v-for="(item, index) in mobileNavItems"
         :key="index"
-        @click="navigateTo(item.path)"
+        @click="handleMobileNavigation(item.path, item.sectionId)"
       >
         <v-list-item-title>{{ t(item.labelKey) }}</v-list-item-title>
       </v-list-item>
@@ -97,16 +101,10 @@ const { locale, t } = useI18n();
 // Состояние навигационного ящика
 const drawer = ref(false);
 
-// Навигационные ссылки
-const navLinks = [
-  { labelKey: "navigation.services", path: "/unsere-dienstleistungen" },
-  { labelKey: "navigation.aboutUs", path: "/ueber-uns" },
-];
-
 // Для мобильных устройств, включаем "Kontaktieren Sie uns"
 const mobileNavItems = [
   { labelKey: "navigation.services", path: "/unsere-dienstleistungen" },
-  { labelKey: "navigation.aboutUs", path: "/ueber-uns" },
+  { labelKey: "navigation.aboutUs", path: "#about-us", sectionId: "about-us" },
   { labelKey: "navigation.contactUs", path: "/kontaktieren-sie-uns" },
 ];
 
@@ -151,10 +149,39 @@ function changeLanguage(lang: any) {
   localStorage.setItem("locale", lang.code);
 }
 
-// Функция навигации
-function navigateTo(path: string) {
-  router.push(path);
-  drawer.value = false; // Закрыть навигационный ящик после навигации
+function scrollToSection(sectionId: string) {
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.scrollIntoView({
+      behavior: "smooth", // Плавная прокрутка
+      block: "start", // Прокрутка к началу блока
+    });
+  }
+}
+function handleMobileNavigation(path: any, sectionId?: string) {
+  drawer.value = false; // Закрываем бургер-меню
+  if (sectionId) {
+    scrollToSection(sectionId); // Прокручиваем к секции
+  } else {
+    router.push(path).then(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth", // Плавная прокрутка
+      });
+    });
+  }
+}
+
+function navigateToHome() {
+  router.push("/").then(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Плавная прокрутка
+    });
+  });
+}
+function navigateToContact() {
+  router.push("/contact"); // Переход на главную страницу
 }
 </script>
 
@@ -166,7 +193,9 @@ function navigateTo(path: string) {
   max-width: 1440px;
   margin: 0 auto;
 }
-
+.logo {
+  cursor: pointer;
+}
 .nav-links-container {
   flex: 1;
   display: flex;

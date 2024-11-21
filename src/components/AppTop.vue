@@ -15,7 +15,7 @@
         <p class="description">
           {{ $t("appTop.description") }}
         </p>
-        <v-btn class="home-btn" @click="onRequestPersonnel">{{
+        <v-btn class="home-btn" @click="navigateToContact">{{
           $t("button")
         }}</v-btn>
       </v-col>
@@ -68,9 +68,8 @@
 export default {
   name: "AppTop",
   methods: {
-    onRequestPersonnel() {
-      // Function to handle the personnel request button click
-      console.log("Personnel request initiated");
+    navigateToContact() {
+      this.$router.push("/contact"); // Переход на главную страницу
     },
   },
 };

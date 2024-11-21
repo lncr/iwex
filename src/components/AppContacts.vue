@@ -7,7 +7,7 @@
         <span class="subtitle">
           {{ $t("contacts.subtitle") }}
         </span>
-        <v-btn class="btn">{{ $t("button") }}</v-btn>
+        <v-btn @click="navigateToContact" class="btn">{{ $t("button") }}</v-btn>
       </div>
 
       <!-- Блок с изображением -->
@@ -23,7 +23,13 @@
 </template>
 
 <script setup>
-// Для этого компонента скрипт не требуется
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+// Обработчик клика по кнопке
+function navigateToContact() {
+  router.push("/contact"); // Переход на главную страницу
+}
 </script>
 
 <style scoped lang="scss">

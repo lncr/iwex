@@ -65,5 +65,30 @@
     "link": "Follow us",
     "adresse": "Address"
   },
+  "form": {
+    "title": "Contact Form",
+    "description": "Do you have any questions or need further information? Fill out the form below, and we will get back to you as soon as possible.",
+    "fields": {
+      "name": "First name Last name:",
+      "email": "Email address:",
+      "phone": "Phone Number:",
+      "subject": "Subject:",
+      "message": "Message:"
+    },
+    "checkbox": "I consent to the processing of my data in accordance with the privacy policy.",
+    "submit": "Submit",
+    "validation": {
+      "required": "This field is required.",
+      "email": "Email must be valid.",
+      "phone": "Phone must contain only numbers",
+      "requiredCheckbox": "You must agree to the terms and conditions"
+    },
+    "success": "Form successfully submitted!"
+  },
+  "impressum": {
+    "title": "Impressum",
+    "text": "<p><strong>IWEX Germany GmbH</strong><br>70 Hahnstr.<br>60528 Frankfurt</p><br><p>Commercial Register: HRB 128023<br>Register Court: Frankfurt am Main District Court</p><br><p><strong>Represented by:</strong><br>Nurdin Sheishenov</p><br><p><strong>Contact</strong></p><p>Phone: 01792078900<br>Email: info@iwex-personal.de</p><br><p><strong>VAT ID</strong></p><p>VAT Identification Number according to § 27 a of the Value Added Tax Act: DE354603798</p><br><p><strong>Consumer Dispute Resolution/Universal Arbitration</strong></p><p>We are not willing or obligated to participate in dispute resolution procedures before a consumer arbitration board.</p>"
+  },
+
   "button": "Request staff now"
 }

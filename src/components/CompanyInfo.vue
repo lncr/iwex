@@ -1,5 +1,5 @@
 <template>
-  <div class="company-info">
+  <div class="company-info" id="about-us">
     <div class="container">
       <div class="text-section">
         <h2 class="title">{{ $t("company.title") }}</h2>
@@ -26,15 +26,13 @@ import founderImage from "@/assets/container.png";
 <style scoped lang="scss">
 .company-info {
   padding: 0 20px;
-  margin-top: 120px;
 
   .container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-    max-width: 1200px;
-    margin: 0 auto;
+    margin-top: 120px;
   }
 
   .text-section {

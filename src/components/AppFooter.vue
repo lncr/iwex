@@ -17,7 +17,7 @@
           <p>{{ $t("footer.tel") }}: 069-870033755</p>
           <p>{{ $t("footer.mob") }}: 0179-2078900</p>
           <p class="email">
-            <a href="mailto:info@iwex-personal.de"> info@iwex-personal.de </a>
+            <a href="mailto:info@iwex-personal.de">info@iwex-personal.de</a>
           </p>
           <p class="firma">IWEX Germany GmbH</p>
         </div>
@@ -29,7 +29,7 @@
           >
           <a
             icon
-            href="https://www.linkedin.com/company/iwex-germany-gmbh"
+            href="https://www.linkedin.com/company/iwex-germany-gmbh/"
             target="_blank"
           >
             <v-icon class="icon">mdi-linkedin</v-icon>
@@ -37,7 +37,7 @@
           </a>
           <a
             icon
-            href="https://www.instagram.com/iwex_germany/"
+            href="https://www.instagram.com/iwex.germany.gmbh/profilecard/?igsh=MXFnMnZkc29lYmFxOQ=="
             target="_blank"
           >
             <v-icon class="icon">mdi-instagram</v-icon>
@@ -49,7 +49,6 @@
             target="_blank"
           >
             <img width="24" class="icon" :src="xing" />
-
             Xing
           </a>
         </div>
@@ -80,8 +79,10 @@
         <p>
           © IWEX 2024. Registry court: AG Frankfurt am Main, HRB 128023
           <span class="footer-links">
-            <a href="/impressum">Impressum</a>
-            <a href="/datenschutz">Datenschutz</a>
+            <router-link to="/impressum">Impressum</router-link>
+            <router-link to="/datenschutzerklaerung"
+              >Datenschutzerklärung</router-link
+            >
           </span>
         </p>
       </div>

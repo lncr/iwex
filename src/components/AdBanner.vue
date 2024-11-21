@@ -12,7 +12,7 @@
           {{ $t("banner.title.part3") }}
         </h1>
         <p class="subheadline" v-html="$t('banner.description')"></p>
-        <v-btn class="cta-button" @click="onButtonClick">
+        <v-btn class="cta-button" @click="navigateToContact">
           {{ $t("button") }}
         </v-btn>
       </div>
@@ -21,13 +21,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { useRouter } from "vue-router";
 
-// Обработчик клика по кнопке
-function onButtonClick() {
-  // Здесь вы можете добавить логику, например, перенаправление на страницу контактов
-  // Например:
-  // this.$router.push('/contact');
+const router = useRouter();
+
+function navigateToContact() {
+  router.push("/contact"); // Переход на главную страницу
 }
 </script>
 

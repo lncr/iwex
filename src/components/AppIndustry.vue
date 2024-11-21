@@ -39,7 +39,9 @@
 
     <!-- Кнопка под галереей -->
     <div class="slider-button">
-      <v-btn class="btn-center">{{ $t("button") }}</v-btn>
+      <v-btn @click="navigateToContact" class="btn-center">{{
+        $t("button")
+      }}</v-btn>
     </div>
   </div>
 </template>
@@ -53,9 +55,11 @@ import { useI18n } from "vue-i18n";
 import mainImage from "@/assets/photo1.png";
 import sideImage1 from "@/assets/photo2.png";
 import sideImage2 from "@/assets/photo3.png";
+import { useRouter } from "vue-router";
 
 const { locale } = useI18n();
 const industries = ref<Array<any>>([]);
+const router = useRouter();
 
 function getIconUrl(iconPath: string) {
   if (iconPath.startsWith("http")) {
@@ -76,6 +80,11 @@ async function loadIndustries(language: string) {
   } catch (error) {
     console.error("Ошибка при загрузке данных индустрий:", error);
   }
+}
+
+// Обработчик клика по кнопке
+function navigateToContact() {
+  router.push("/contact"); // Переход на главную страницу
 }
 
 watch(locale, (newLocale) => {

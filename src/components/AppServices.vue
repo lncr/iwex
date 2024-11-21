@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" id="services">
     <!-- Заголовок -->
     <div class="section-title">
       <span v-html="$t('services.title')"></span>
