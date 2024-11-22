@@ -17,6 +17,7 @@
           class="card-inner"
           @mouseover="hover = index"
           @mouseleave="hover = null"
+          @click="toggleFlip(index)"
           :class="{ 'is-flipped': hover === index }"
         >
           <!-- Передняя сторона карточки -->
@@ -100,12 +101,22 @@ onMounted(() => {
 watch(locale, (newLocale) => {
   loadCards(newLocale);
 });
+
+// Функция для переключения переворота карточки по клику
+function toggleFlip(index: number) {
+  if (hover.value === index) {
+    hover.value = null;
+  } else {
+    hover.value = index;
+  }
+}
 </script>
 
 <style scoped lang="scss">
 .container {
   text-align: center;
   margin-top: 120px;
+  padding: 0 20px; /* Добавим отступы по бокам для мобильных устройств */
 }
 
 .section-title {
@@ -141,9 +152,39 @@ watch(locale, (newLocale) => {
 }
 
 .service-card {
-  width: calc(50% - 20px); /* Две карточки в ряду с отступами */
+  width: calc(50% - 20px); /* Максимум две карточки в ряду */
   margin-bottom: 40px;
-  perspective: 1000px; /* Добавляем перспективу для 3D эффекта */
+  perspective: 1000px;
+}
+
+/* Адаптивность для планшетов */
+@media (max-width: 960px) {
+  .service-card {
+    width: 100%; /* Одна карточка в ряду */
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+  .section-title span {
+    font-size: 32px;
+  }
+
+  .section-description {
+    font-size: 15px;
+  }
+
+  .card-title {
+    font-size: 20px;
+  }
+
+  .card-description {
+    font-size: 16px;
+  }
+
+  .card-back-content .card-back-title {
+    font-size: 24px;
+  }
 }
 
 .card-inner {
@@ -158,6 +199,19 @@ watch(locale, (newLocale) => {
 
 .card-inner.is-flipped {
   transform: rotateY(180deg);
+}
+
+/* Убираем эффект переворота на мобильных устройствах */
+@media (hover: none) and (pointer: coarse) {
+  .card-inner {
+    transform: none !important;
+  }
+  .card-front,
+  .card-back {
+    position: relative;
+    transform: none !important;
+    backface-visibility: visible;
+  }
 }
 
 .card-front,
@@ -244,12 +298,5 @@ watch(locale, (newLocale) => {
 .card-back .card-description {
   color: #ffffff;
   text-align: center;
-}
-
-/* Адаптивность для мобильных устройств */
-@media (max-width: 767px) {
-  .service-card {
-    width: 100%;
-  }
 }
 </style>

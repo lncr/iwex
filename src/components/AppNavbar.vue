@@ -1,76 +1,78 @@
 <template>
   <v-app-bar app fixed color="#333333" dark>
     <!-- Обёртка контента Navbar -->
-    <div class="navbar-content">
-      <!-- Логотип -->
-      <div class="logo" @click="navigateToHome">
-        <img
-          :src="logoImage"
-          alt="Logo"
-          style="max-height: 40px; max-width: 150px"
-        />
-      </div>
+    <v-container fluid class="navbar-container">
+      <v-row align="center" justify="space-between" no-gutters>
+        <!-- Логотип -->
+        <v-col cols="auto">
+          <div class="logo" @click="navigateToHome">
+            <img :src="logoImage" alt="Logo" class="logo-img" />
+          </div>
+        </v-col>
 
-      <!-- Навигационные ссылки для десктопа -->
-      <div class="nav-links-container d-none d-md-flex">
-        <div class="nav-links">
-          <v-btn
-            variant="text"
-            @click="scrollToSection('services')"
-            class="nav-link"
-          >
-            {{ t("navigation.services") }}
-          </v-btn>
-          <v-btn
-            variant="text"
-            @click="scrollToSection('about-us')"
-            class="nav-link"
-          >
-            {{ t("navigation.aboutUs") }}
-          </v-btn>
-          <!-- Кнопка "Kontaktieren Sie uns" -->
-          <v-btn @click="navigateToContact" class="nav-button">
-            {{ t("navigation.contactUs") }}
-          </v-btn>
-        </div>
-      </div>
-
-      <!-- Правые элементы: Переключатель языка и бургер-меню -->
-      <div class="right-items">
-        <!-- Переключатель языка -->
-        <v-menu offset-y>
-          <template v-slot:activator="{ props }">
-            <v-btn v-bind="props" class="language-btn">
-              <v-avatar size="24">
-                <v-img :src="currentLanguage?.flag"></v-img>
-              </v-avatar>
-            </v-btn>
-          </template>
-          <v-list>
-            <v-list-item
-              v-for="(lang, index) in languages"
-              :key="index"
-              @click="changeLanguage(lang)"
+        <!-- Навигационные ссылки для планшетов и десктопов -->
+        <v-col class="d-none d-sm-flex" cols="auto">
+          <div class="nav-links">
+            <v-btn
+              variant="text"
+              @click="scrollToSection('services')"
+              class="nav-link"
             >
-              <v-list-item-avatar>
-                <v-img :src="lang.flag"></v-img>
-              </v-list-item-avatar>
-              <v-list-item-title>{{ lang.name }}</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
+              {{ t("navigation.services") }}
+            </v-btn>
+            <v-btn
+              variant="text"
+              @click="scrollToSection('about-us')"
+              class="nav-link"
+            >
+              {{ t("navigation.aboutUs") }}
+            </v-btn>
+            <!-- Кнопка "Kontaktieren Sie uns" -->
+            <v-btn @click="navigateToContact" class="nav-button">
+              {{ t("navigation.contactUs") }}
+            </v-btn>
+          </div>
+        </v-col>
 
-        <!-- Бургер-меню для мобильных устройств -->
-        <v-app-bar-nav-icon
-          @click="drawer = !drawer"
-          class="d-md-none"
-        ></v-app-bar-nav-icon>
-      </div>
-    </div>
+        <!-- Правые элементы: Переключатель языка и бургер-меню -->
+        <v-col cols="auto">
+          <div class="right-items">
+            <!-- Переключатель языка -->
+            <v-menu offset-y>
+              <template v-slot:activator="{ props }">
+                <v-btn v-bind="props" class="language-btn">
+                  <v-avatar size="24">
+                    <v-img :src="currentLanguage?.flag"></v-img>
+                  </v-avatar>
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item
+                  v-for="(lang, index) in languages"
+                  :key="index"
+                  @click="changeLanguage(lang)"
+                >
+                  <v-list-item-avatar>
+                    <v-img :src="lang.flag"></v-img>
+                  </v-list-item-avatar>
+                  <v-list-item-title>{{ lang.name }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+
+            <!-- Бургер-меню для мобильных устройств -->
+            <v-app-bar-nav-icon
+              @click="drawer = !drawer"
+              class="d-sm-none"
+            ></v-app-bar-nav-icon>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-app-bar>
 
   <!-- Навигационный ящик для мобильных устройств -->
-  <v-navigation-drawer v-model="drawer" app temporary class="d-md-none">
+  <v-navigation-drawer v-model="drawer" app temporary class="d-sm-none">
     <v-list dense>
       <!-- Навигационные ссылки -->
       <v-list-item
@@ -101,7 +103,7 @@ const { locale, t } = useI18n();
 // Состояние навигационного ящика
 const drawer = ref(false);
 
-// Для мобильных устройств, включаем "Kontaktieren Sie uns"
+// Для мобильных устройств, включаем "Contact Us"
 const mobileNavItems = [
   { labelKey: "navigation.services", path: "/unsere-dienstleistungen" },
   { labelKey: "navigation.aboutUs", path: "#about-us", sectionId: "about-us" },
@@ -158,6 +160,7 @@ function scrollToSection(sectionId: string) {
     });
   }
 }
+
 function handleMobileNavigation(path: any, sectionId?: string) {
   drawer.value = false; // Закрываем бургер-меню
   if (sectionId) {
@@ -180,34 +183,28 @@ function navigateToHome() {
     });
   });
 }
+
 function navigateToContact() {
-  router.push("/contact"); // Переход на главную страницу
+  router.push("/contact"); // Переход на страницу контактов
 }
 </script>
 
 <style scoped lang="scss">
-.navbar-content {
-  display: flex;
-  align-items: center;
-  width: 100%;
+.navbar-container {
   max-width: 1440px;
   margin: 0 auto;
 }
+
 .logo {
   cursor: pointer;
-}
-.nav-links-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
+
+  img {
+    max-height: 40px;
+    max-width: 150px;
+  }
 }
 
 .nav-links {
-  display: flex;
-  align-items: center;
-}
-
-.right-items {
   display: flex;
   align-items: center;
 }
@@ -229,27 +226,41 @@ function navigateToContact() {
   text-transform: none;
 }
 
+.right-items {
+  display: flex;
+  align-items: center;
+}
+
 .language-btn {
   margin-left: 16px;
 }
 
 .v-list-item {
   display: flex;
+
   .v-list-item__content {
     display: flex;
+
     .v-img {
       width: 20px;
     }
+
     .v-list-item-title {
       color: #383838;
     }
   }
 }
 
-/* Обеспечить корректное отображение переключателя языка на мобильных устройствах */
-@media (max-width: 960px) {
-  .language-btn {
+/* Адаптивные стили */
+@media (max-width: 600px) {
+  .language-btn,
+  .nav-button {
     margin-left: 8px;
+  }
+
+  .logo img {
+    max-height: 30px;
+    max-width: 120px;
   }
 }
 </style>
