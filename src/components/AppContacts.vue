@@ -1,5 +1,5 @@
 <template>
-  <div fluid class="contact-us-block">
+  <div class="contact-us-block">
     <div class="contacts">
       <!-- Текстовый блок -->
       <div class="contact-left">
@@ -28,7 +28,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 // Обработчик клика по кнопке
 function navigateToContact() {
-  router.push("/contact"); // Переход на главную страницу
+  router.push("/contact"); // Переход на страницу контактов
 }
 </script>
 
@@ -104,5 +104,75 @@ h1 {
 h4 {
   font-size: 24px;
   margin-top: 16px;
+}
+
+/* Адаптивность для планшетов и ноутбуков */
+@media (max-width: 960px) {
+  .contact-us-block {
+    height: 600px;
+    margin-top: 100px;
+  }
+
+  .contacts {
+    padding: 100px 50px;
+
+    .contact-left {
+      max-width: 100%;
+      .title {
+        font-size: 48px;
+      }
+      .subtitle {
+        font-size: 16px;
+      }
+      .btn {
+        margin-top: 60px;
+        width: 220px;
+        height: 45px;
+        font-size: 16px;
+      }
+    }
+
+    .contact-right {
+      display: none; /* Скрываем правый блок на планшетах */
+    }
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+  .contact-us-block {
+    height: auto;
+    margin-top: 80px;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .contacts {
+    flex-direction: column;
+    padding: 50px 20px;
+    text-align: center;
+
+    .contact-left {
+      max-width: 100%;
+      align-items: center;
+
+      .title {
+        font-size: 36px;
+      }
+      .subtitle {
+        font-size: 14px;
+      }
+      .btn {
+        margin-top: 40px;
+        width: 200px;
+        height: 40px;
+        font-size: 14px;
+      }
+    }
+
+    .contact-right {
+      display: none; /* Скрываем правый блок на мобильных устройствах */
+    }
+  }
 }
 </style>

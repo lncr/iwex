@@ -23,7 +23,7 @@
     </v-alert>
 
     <v-container class="form-container">
-      <!-- Your existing form content -->
+      <!-- Ваш существующий контент формы -->
       <v-row>
         <v-col cols="12">
           <h2 class="title">{{ $t("form.title") }}</h2>
@@ -99,18 +99,15 @@
             ></v-checkbox>
           </v-col>
           <!-- Submit Button -->
-          <v-col cols="5"></v-col>
-          <v-col cols="3" class="btn">
+          <v-col cols="12" class="btn">
             <v-btn
               :disabled="!valid"
-              block
               class="white--text button"
               @click="submitForm"
             >
               {{ $t("form.submit") }}
             </v-btn>
           </v-col>
-          <v-col cols="5"></v-col>
         </v-row>
       </v-form>
     </v-container>
@@ -186,65 +183,119 @@ body,
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #333; /* Background color for the whole page */
+  background-color: #333; /* Цвет фона для всей страницы */
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
 }
 
 .form-container {
-  max-width: 100%; /* Form width */
-  height: 100%;
-  background-color: #333; /* Container background color */
-  color: #fff; /* Text color */
-  padding: 40px;
+  max-width: 100%; /* Ширина формы */
+  height: 100vh;
+  background-color: #333; /* Цвет фона контейнера */
+  color: #fff; /* Цвет текста */
+  padding: 40px 50px;
   border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Container shadow */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Тень контейнера */
+  /* Убрано margin-top */
 }
 
 .title {
-  color: rgba(255, 203, 0, 1); /* Title color */
+  color: rgba(255, 203, 0, 1); /* Цвет заголовка */
   text-align: start;
   font-size: 48px;
-  margin-left: 50px;
+  margin-bottom: 20px;
 }
 
 .description {
   text-align: start;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   font-size: 28px;
-  margin-left: 50px;
 }
 
-.checkbox-label ::v-deep .v-label {
+.checkbox-label .v-label {
   color: rgba(255, 203, 0, 1);
   font-size: 20px;
 }
 
-.v-text-field {
-  height: 100px;
+.v-text-field,
+.v-textarea {
+  height: auto;
 }
 
 .btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
   .button {
     background-color: rgba(222, 222, 222, 1);
-    font-size: 24px;
+    font-size: 16px;
     border-radius: 30px;
-    padding: 25px;
+    padding: 10px 20px;
     color: rgba(51, 51, 51, 1);
+    text-transform: none;
   }
 }
 
-/* New CSS for the alert messages */
 .alert-message {
   position: fixed;
-  top: 20px; /* Position from the top of the viewport */
-  left: 50%; /* Center horizontally */
-  transform: translateX(-50%); /* Adjust for centering */
-  width: 250px; /* Set width between 200-300px */
-  z-index: 1000; /* Ensure it appears above other elements */
+  top: 20px; /* Положение от верхнего края окна */
+  left: 50%; /* Центрируем по горизонтали */
+  transform: translateX(-50%); /* Корректировка для центрирования */
+  width: 250px; /* Ширина между 200-300px */
+  z-index: 1000; /* Обеспечиваем отображение поверх других элементов */
 }
 
 .v-col {
   padding: 5px;
+}
+
+/* Адаптивность для планшетов и ноутбуков */
+@media (max-width: 960px) {
+  .form-container {
+    padding: 30px 40px;
+  }
+
+  .title {
+    font-size: 36px;
+  }
+
+  .description {
+    font-size: 24px;
+  }
+
+  .btn .button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+  .form-container {
+    padding: 20px 20px;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .title {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .description {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .btn .button {
+    font-size: 14px;
+    padding: 8px 12px;
+    width: auto;
+  }
+
+  .checkbox-label .v-label {
+    font-size: 16px;
+  }
 }
 </style>

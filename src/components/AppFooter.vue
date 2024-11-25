@@ -217,4 +217,112 @@ import xing from "../assets/xing.svg";
     font-size: 23px;
   }
 }
+
+/* Адаптивность для планшетов и ноутбуков */
+@media (max-width: 960px) {
+  .footer-container .left {
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+  }
+
+  .footer-container .left > div {
+    flex: 1 1 45%;
+    margin-bottom: 40px;
+  }
+
+  .footer-container .logo {
+    justify-content: center;
+    margin-bottom: 20px;
+    span {
+      font-size: 48px;
+    }
+    img {
+      width: 140px;
+    }
+  }
+
+  .footer-container .numbers,
+  .footer-container .links,
+  .footer-container .address {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-container .numbers p,
+  .footer-container .address p {
+    font-size: 14px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .footer-bottom p {
+    font-size: 14px;
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+  .footer-block {
+    padding-top: 40px;
+    padding-bottom: 20px;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .footer-container {
+    padding: 0 10px;
+  }
+
+  .footer-container .left {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-container .left > div {
+    flex: none;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .footer-container .logo {
+    flex-direction: column;
+    gap: 12px;
+    span {
+      font-size: 36px;
+    }
+    img {
+      width: 100px;
+    }
+  }
+
+  .footer-container .numbers,
+  .footer-container .links,
+  .footer-container .address {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-container .numbers p,
+  .footer-container .address p {
+    font-size: 12px;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    padding: 8px 0;
+    p {
+      font-size: 12px;
+    }
+    .footer-links a {
+      margin-left: 16px;
+    }
+  }
+}
 </style>

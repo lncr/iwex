@@ -41,4 +41,48 @@ p {
   font-family: Epilogue;
   margin-bottom: 16px;
 }
+
+/* Адаптивность для планшетов и ноутбуков */
+@media (max-width: 960px) {
+  .impressum {
+    padding: 30px 16px;
+  }
+
+  h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 36px;
+    line-height: 50px;
+    margin-bottom: 12px;
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+  .impressum {
+    padding: 20px 10px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .content {
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 36px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  p {
+    font-size: 24px;
+    line-height: 32px;
+    margin-bottom: 8px;
+    text-align: justify;
+  }
+}
 </style>

@@ -215,5 +215,10 @@ function navigateToContact() {
     display: block;
     margin: 0 auto;
   }
+  .stat {
+    .iwex-col {
+      padding: 0 8px;
+    }
+  }
 }
 </style>

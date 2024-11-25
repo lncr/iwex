@@ -208,7 +208,6 @@ function getSlideClass(index: number) {
 
 .icon-wrapper {
   position: absolute;
-  /* Позиция по умолчанию */
   width: 60px;
   height: 60px;
   top: 20px;
@@ -298,5 +297,140 @@ function getSlideClass(index: number) {
 /* Скрываем предыдущий слайд */
 .prev-slide {
   display: none;
+}
+
+/* Планшеты и ноутбуки */
+@media (max-width: 960px) {
+  .section-header {
+    width: 100%;
+    margin-bottom: 50px;
+
+    .section-title {
+      font-size: 36px;
+    }
+
+    .semicircle-icon {
+      width: 150px;
+      left: 0;
+    }
+  }
+
+  .carousel-wrapper {
+    height: 350px;
+  }
+
+  .step-card {
+    padding: 20px;
+    max-width: 500px;
+  }
+
+  .active-card .icon-wrapper {
+    width: 120px;
+    height: 120px;
+    top: -60px;
+    left: -60px;
+  }
+
+  .active-card .inner-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .active-card .step-title {
+    margin-top: 80px;
+  }
+
+  .step-title {
+    font-size: 20px;
+    margin-top: 80px;
+    margin-bottom: 15px;
+  }
+
+  .step-description {
+    font-size: 16px;
+  }
+
+  .carousel-item {
+    width: 80%;
+  }
+
+  .active-slide {
+    transform: translateX(-50%) translateZ(0px) scale(0.9);
+  }
+
+  .next-slide {
+    transform: translateX(20%) translateZ(-150px) scale(0.8);
+  }
+}
+
+/* Мобильные устройства */
+@media (max-width: 600px) {
+  .section-header {
+    width: 100%;
+    margin-bottom: 30px;
+
+    .section-title {
+      font-size: 24px;
+    }
+
+    .semicircle-icon {
+      width: 100px;
+      left: -5%;
+    }
+  }
+
+  .carousel-wrapper {
+    height: 300px;
+  }
+
+  .step-card {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .active-card .icon-wrapper {
+    width: 80px;
+    height: 80px;
+    top: -40px;
+    left: -40px;
+  }
+
+  .active-card .inner-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .active-card .step-title {
+    margin-top: 60px;
+  }
+
+  .step-title {
+    font-size: 18px;
+    margin-top: 60px;
+    margin-bottom: 10px;
+  }
+
+  .step-description {
+    font-size: 14px;
+  }
+
+  .carousel-item {
+    width: 90%;
+  }
+
+  .active-slide {
+    transform: translateX(-50%) translateZ(0px) scale(0.8);
+  }
+
+  .next-slide {
+    transform: translateX(20%) translateZ(-100px) scale(0.7);
+  }
+
+  /* Скрываем иконку на очень маленьких экранах */
+  @media (max-width: 400px) {
+    .semicircle-icon {
+      display: none;
+    }
+  }
 }
 </style>

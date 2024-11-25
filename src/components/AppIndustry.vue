@@ -128,8 +128,8 @@ watch(locale, (newLocale) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 40px; /* Увеличенный отступ между заголовком и кругом */
-  flex-wrap: wrap; /* Позволяет элементам переноситься на новую строку при необходимости */
+  gap: 40px;
+  flex-wrap: wrap;
 
   .section-title {
     font-size: 48px;
@@ -172,14 +172,14 @@ watch(locale, (newLocale) => {
 /* Иконки с описаниями */
 .industries {
   display: flex;
-  justify-content: center; /* Центрируем блок */
+  justify-content: center;
   margin-top: 40px;
   margin-bottom: 60px;
-  gap: 10px; /* Уменьшили gap для ближе расположения элементов */
+  gap: 10px;
 
   .industry-item {
     text-align: center;
-    flex: 0 0 15%; /* 5 элементов в ряду: примерно 18% каждый с учетом gap */
+    flex: 0 0 15%;
   }
 
   .industry-icon {
@@ -204,50 +204,69 @@ watch(locale, (newLocale) => {
   display: flex;
   gap: 24px;
   justify-content: center;
-  align-items: stretch; /* Выровнять по высоте */
-  flex-wrap: nowrap; /* Предотвращаем перенос элементов */
+  align-items: stretch;
+  flex-wrap: nowrap;
 }
 
 .gallery-image {
   border-radius: 30px;
-  height: 100%; /* Равная высота */
-  object-fit: cover; /* Заполнение без искажения */
+  object-fit: cover;
 }
 
 .main-image {
-  flex: 0 1 50%; /* Главная картинка занимает 50% ширины */
+  flex: 0 1 50%;
   max-width: 600px;
-  height: auto; /* Автоматическая высота */
+  height: auto;
 }
 
 .side-image {
-  flex: 0 1 25%; /* Каждая боковая картинка занимает 25% ширины */
+  flex: 0 1 25%;
   max-width: 315px;
-  height: auto; /* Автоматическая высота */
+  height: auto;
 }
 
 /* Адаптивные стили */
 
 /* Планшеты и меньшие экраны (до 960px) */
-@media (max-width: 960px) {
-  /* Галерея изображений */
-  .gallery-images {
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
+@media (max-width: 1200px) {
   .main-image,
   .side-image {
-    width: 80%;
-    max-width: none;
-    height: auto;
+    max-width: 400px;
+    height: 300px; /* Фиксированная высота */
   }
 
   /* Заголовок и круг с текстом */
   .section-header {
     flex-direction: column;
-    gap: 20px; /* Уменьшенный отступ */
+    gap: 20px;
+  }
+}
+/* Планшеты и меньшие экраны (до 960px) */
+@media (max-width: 960px) {
+  /* Галерея изображений */
+  .gallery-images {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .gallery-image {
+    max-width: 400px;
+    height: 250px; /* Фиксированная высота */
+    margin: 8px;
+  }
+
+  .main-image,
+  .side-image {
+    max-width: 300px;
+    height: 200px; /* Фиксированная высота */
+  }
+
+  /* Заголовок и круг с текстом */
+  .section-header {
+    flex-direction: column;
+    gap: 20px;
+
     .circle-text {
       display: none;
     }
@@ -255,11 +274,11 @@ watch(locale, (newLocale) => {
 
   /* Иконки с описаниями */
   .industries {
-    justify-content: center;
+    flex-wrap: wrap;
 
     .industry-item {
-      flex: 0 0 18%; /* Сохраняем 5 элементов в ряду */
-      margin: 1%;
+      flex: 0 0 calc(33.33% - 16px);
+      margin: 8px;
     }
   }
 }
@@ -272,10 +291,17 @@ watch(locale, (newLocale) => {
     align-items: center;
   }
 
+  .gallery-image {
+    width: 100%;
+    max-width: 250px;
+    height: 150px; /* Фиксированная высота */
+    margin: 8px 0;
+  }
+
   .main-image,
   .side-image {
-    width: 100%;
-    max-width: none;
+    max-width: 320px;
+    max-height: 300px; /* Фиксированная высота */
   }
 
   /* Скрываем круг с текстом */
@@ -285,14 +311,12 @@ watch(locale, (newLocale) => {
 
   /* Иконки с описаниями */
   .industries {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    justify-content: center; /* Центрируем элементы */
+    flex-wrap: wrap;
+    justify-content: center;
 
     .industry-item {
-      flex: 0 0 18%;
-      margin: 1%;
+      flex: 0 0 calc(50% - 16px);
+      margin: 8px;
     }
 
     .industry-icon {
@@ -307,11 +331,6 @@ watch(locale, (newLocale) => {
   /* Заголовок */
   .section-title {
     font-size: 32px;
-  }
-
-  /* Описание */
-  .section-description {
-    font-size: 15px;
   }
 
   /* Кнопка */

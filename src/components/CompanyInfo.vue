@@ -58,7 +58,7 @@ import founderImage from "@/assets/container.png";
       flex-direction: column;
 
       .signature-image {
-        max-width: 230px; // Ограничиваем ширину до 130px
+        max-width: 230px;
         width: 100%;
         height: auto;
         margin-right: 20px;
@@ -82,7 +82,6 @@ import founderImage from "@/assets/container.png";
     align-items: center;
 
     .image-wrapper {
-      //   background-color: #ffc107; // Ярко-желтый фон
       padding: 20px;
       border-radius: 10px;
 
@@ -95,19 +94,81 @@ import founderImage from "@/assets/container.png";
   }
 }
 
-/* Адаптивность */
-@media (max-width: 768px) {
+/* Адаптивность для планшетов и ноутбуков */
+@media (max-width: 960px) {
   .company-info {
-    padding: 40px 10px;
+    padding: 0 15px;
+
+    .container {
+      flex-wrap: wrap;
+      margin-top: 80px;
+    }
+
+    .text-section {
+      flex: 1 1 100%;
+      padding-right: 0;
+      text-align: center;
+
+      .title {
+        font-size: 32px;
+      }
+
+      .description {
+        font-size: 16px;
+      }
+
+      .signature {
+        align-items: center;
+
+        .signature-image {
+          margin-right: 0;
+          margin-bottom: 10px;
+          max-width: 200px;
+        }
+
+        .founder {
+          font-size: 16px;
+        }
+      }
+    }
+
+    .image-section {
+      flex: 1 1 100%;
+      margin-top: 30px;
+
+      .image-wrapper {
+        padding: 15px;
+
+        .founder-image {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+    }
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+  .company-info {
+    padding: 0 10px;
 
     .container {
       flex-direction: column;
-      align-items: center;
+      margin-top: 60px;
     }
 
     .text-section {
       padding-right: 0;
       text-align: center;
+
+      .title {
+        font-size: 28px;
+      }
+
+      .description {
+        font-size: 14px;
+      }
 
       .signature {
         flex-direction: column;
@@ -116,12 +177,26 @@ import founderImage from "@/assets/container.png";
         .signature-image {
           margin-right: 0;
           margin-bottom: 10px;
+          max-width: 150px;
+        }
+
+        .founder {
+          font-size: 14px;
         }
       }
     }
 
     .image-section {
-      margin-top: 30px;
+      margin-top: 20px;
+
+      .image-wrapper {
+        padding: 10px;
+
+        .founder-image {
+          max-width: 100%;
+          height: auto;
+        }
+      }
     }
   }
 }

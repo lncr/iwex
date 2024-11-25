@@ -26,7 +26,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 function navigateToContact() {
-  router.push("/contact"); // Переход на главную страницу
+  router.push("/contact"); // Переход на страницу контактов
 }
 </script>
 
@@ -41,7 +41,7 @@ function navigateToContact() {
   margin-left: calc(
     50% - 50vw
   ); /* Сдвигаем контейнер влево на половину лишней ширины */
-  height: 660px; /* Вы можете настроить высоту по своему усмотрению */
+  height: 660px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,13 +53,13 @@ function navigateToContact() {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Затемнение фона */
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
 
     .content {
-      max-width: 1200px; /* Ограничиваем ширину контента для больших экранов */
+      max-width: 1200px;
       width: 100%;
       padding: 20px;
       text-align: center;
@@ -70,10 +70,10 @@ function navigateToContact() {
         font-weight: 700;
         margin-top: 100px;
         margin-bottom: 50px;
-        font-family: Epilogue;
+        font-family: "Epilogue", sans-serif;
 
         .highlight {
-          color: rgba(254, 202, 0, 1); /* Ярко-желтый цвет */
+          color: rgba(254, 202, 0, 1);
         }
       }
 
@@ -81,7 +81,7 @@ function navigateToContact() {
         font-size: 17px;
         margin-bottom: 50px;
         font-weight: 400;
-        font-family: Open Sans;
+        font-family: "Open Sans", sans-serif;
       }
 
       .cta-button {
@@ -93,6 +93,63 @@ function navigateToContact() {
         width: 270px;
         text-transform: none;
         margin-bottom: 100px;
+      }
+    }
+  }
+}
+
+/* Планшеты и ноутбуки */
+@media (max-width: 960px) {
+  .ad-banner {
+    height: 500px; /* Уменьшаем высоту баннера */
+    margin-top: 80px; /* Уменьшаем верхний отступ */
+
+    .overlay {
+      .content {
+        .headline {
+          font-size: 36px; /* Уменьшаем размер шрифта заголовка */
+          margin-top: 60px; /* Уменьшаем верхний отступ заголовка */
+          margin-bottom: 30px; /* Уменьшаем нижний отступ заголовка */
+        }
+        .subheadline {
+          font-size: 15px; /* Уменьшаем размер шрифта подзаголовка */
+          margin-bottom: 30px; /* Уменьшаем нижний отступ подзаголовка */
+        }
+        .cta-button {
+          height: 50px;
+          width: 220px;
+          margin-bottom: 80px;
+        }
+      }
+    }
+  }
+}
+
+/* Мобильные устройства */
+@media (max-width: 600px) {
+  .ad-banner {
+    height: 400px; /* Еще больше уменьшаем высоту баннера */
+    margin-top: 60px; /* Уменьшаем верхний отступ */
+    width: 100%; /* Устанавливаем ширину в 100% */
+    margin-left: 0; /* Убираем смещение */
+
+    .overlay {
+      .content {
+        padding: 15px;
+        .headline {
+          font-size: 28px; /* Уменьшаем размер шрифта заголовка */
+          margin-top: 40px; /* Уменьшаем верхний отступ заголовка */
+          margin-bottom: 20px; /* Уменьшаем нижний отступ заголовка */
+        }
+        .subheadline {
+          font-size: 13px; /* Уменьшаем размер шрифта подзаголовка */
+          margin-bottom: 20px; /* Уменьшаем нижний отступ подзаголовка */
+        }
+        .cta-button {
+          height: 45px;
+          width: 200px;
+          margin-bottom: 60px;
+        }
       }
     }
   }

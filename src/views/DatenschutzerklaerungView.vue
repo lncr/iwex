@@ -2115,11 +2115,73 @@ h1 {
 }
 
 ul {
-  /* list-style-position: inside; Маркеры внутри отступа */
   padding-left: 20px; /* Отступ списка */
   list-style: none;
 }
+
 li {
   text-indent: 20px; /* Красная строка для текста внутри li */
+}
+
+/* Адаптивность для планшетов и ноутбуков */
+@media (max-width: 960px) {
+  .datenschutz {
+    padding: 30px 16px;
+  }
+
+  .content {
+    max-width: 90%;
+  }
+
+  h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+
+  .text {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  ul {
+    padding-left: 15px;
+  }
+
+  li {
+    text-indent: 15px;
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+  .datenschutz {
+    padding: 20px 10px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .content {
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 36px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .text {
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: justify;
+  }
+
+  ul {
+    padding-left: 10px;
+  }
+
+  li {
+    text-indent: 10px;
+  }
 }
 </style>

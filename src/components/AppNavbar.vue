@@ -51,11 +51,12 @@
                   v-for="(lang, index) in languages"
                   :key="index"
                   @click="changeLanguage(lang)"
+                  class="language-item"
                 >
-                  <v-list-item-avatar>
-                    <v-img :src="lang.flag"></v-img>
-                  </v-list-item-avatar>
-                  <v-list-item-title>{{ lang.name }}</v-list-item-title>
+                  <div class="language-content">
+                    <v-img :src="lang.flag" class="language-flag"></v-img>
+                    <span class="language-name">{{ lang.name }}</span>
+                  </div>
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -235,20 +236,40 @@ function navigateToContact() {
   margin-left: 16px;
 }
 
-.v-list-item {
-  display: flex;
-
-  .v-list-item__content {
-    display: flex;
-
-    .v-img {
-      width: 20px;
-    }
-
-    .v-list-item-title {
-      color: #383838;
-    }
+.language-item {
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
   }
+}
+
+.language-content {
+  display: flex;
+  align-items: center;
+}
+
+.language-flag {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.language-name {
+  color: #383838;
+}
+
+.v-list-item {
+  padding: 8px 16px;
+}
+
+.v-list-item__content {
+  display: flex;
+  align-items: center;
+}
+
+.v-list-item-title {
+  margin-left: 8px;
+  color: #383838;
 }
 
 /* Адаптивные стили */
