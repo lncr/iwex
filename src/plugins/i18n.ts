@@ -5,7 +5,7 @@ import localeEn from "./locales/en.json";
 export type Locales = "eng" | "deu";
 
 // Получаем сохраненную локаль из localStorage или используем 'en' по умолчанию
-const savedLocale = localStorage.getItem("locale") || "eng";
+const savedLocale = (localStorage.getItem("locale") as Locales) || "eng";
 
 const i18n = createI18n({
   legacy: false, // Используем Composition API

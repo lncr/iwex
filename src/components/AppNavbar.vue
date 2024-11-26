@@ -76,13 +76,23 @@
   <v-navigation-drawer v-model="drawer" app temporary class="d-sm-none">
     <v-list dense>
       <!-- Навигационные ссылки -->
-      <v-list-item
-        v-for="(item, index) in mobileNavItems"
-        :key="index"
-        @click="handleMobileNavigation(item.path, item.sectionId)"
-      >
-        <v-list-item-title>{{ t(item.labelKey) }}</v-list-item-title>
-      </v-list-item>
+      <template v-for="(item, index) in mobileNavItems" :key="index">
+        <v-list-item
+          v-if="!item.isButton"
+          @click="handleMobileNavigation(item.path, item.sectionId)"
+        >
+          <v-list-item-title>{{ t(item.labelKey) }}</v-list-item-title>
+        </v-list-item>
+        <v-list-item
+          v-else
+          @click="handleMobileNavigation(item.path, item.sectionId)"
+          class="contact-list-item"
+        >
+          <v-btn class="nav-button" block>
+            {{ t(item.labelKey) }}
+          </v-btn>
+        </v-list-item>
+      </template>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -106,9 +116,21 @@ const drawer = ref(false);
 
 // Для мобильных устройств, включаем "Contact Us"
 const mobileNavItems = [
-  { labelKey: "navigation.services", path: "/unsere-dienstleistungen" },
-  { labelKey: "navigation.aboutUs", path: "#about-us", sectionId: "about-us" },
-  { labelKey: "navigation.contactUs", path: "/kontaktieren-sie-uns" },
+  {
+    labelKey: "navigation.services",
+    path: "#services",
+    sectionId: "services",
+  },
+  {
+    labelKey: "navigation.aboutUs",
+    path: "#about-us",
+    sectionId: "about-us",
+  },
+  {
+    labelKey: "navigation.contactUs",
+    path: "/contact",
+    isButton: true, // Добавлено свойство
+  },
 ];
 
 // Настройки языка
@@ -164,6 +186,7 @@ function scrollToSection(sectionId: string) {
 
 function handleMobileNavigation(path: any, sectionId?: string) {
   drawer.value = false; // Закрываем бургер-меню
+  console.log(path, sectionId);
   if (sectionId) {
     scrollToSection(sectionId); // Прокручиваем к секции
   } else {
@@ -186,7 +209,11 @@ function navigateToHome() {
 }
 
 function navigateToContact() {
-  router.push("/contact"); // Переход на страницу контактов
+  try {
+    router.push("/contact");
+  } catch (error) {
+    console.error("Ошибка при переходе на страницу контактов:", error);
+  }
 }
 </script>
 
@@ -282,6 +309,12 @@ function navigateToContact() {
   .logo img {
     max-height: 30px;
     max-width: 120px;
+  }
+  .nav-button {
+    background-color: #feca00;
+    color: #383838;
+    text-transform: none;
+    width: 100%;
   }
 }
 </style>

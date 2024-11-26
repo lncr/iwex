@@ -81,7 +81,7 @@ function getIconUrl(iconPath: string) {
   if (iconPath.startsWith("http")) {
     return iconPath;
   }
-  const baseUrl = process.env.VUE_APP_BASE_URL || "http://159.223.21.167";
+  const baseUrl = process.env.VUE_APP_BASE_URL || "https://iwex-germany.de/";
   return `${baseUrl}${iconPath}`;
 }
 
@@ -116,6 +116,13 @@ watch(locale, (newLocale) => {
 </script>
 
 <style scoped lang="scss">
+/* Общие стили для всех элементов */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .container {
   text-align: center;
   margin-top: 120px;
@@ -225,9 +232,21 @@ watch(locale, (newLocale) => {
   height: auto;
 }
 
+/* Кнопка под галереей */
+.slider-button {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-center {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 8px;
+}
+
 /* Адаптивные стили */
 
-/* Планшеты и меньшие экраны (до 960px) */
+/* Планшеты и меньшие экраны (до 1200px) */
 @media (max-width: 1200px) {
   .main-image,
   .side-image {
@@ -241,6 +260,7 @@ watch(locale, (newLocale) => {
     gap: 20px;
   }
 }
+
 /* Планшеты и меньшие экраны (до 960px) */
 @media (max-width: 960px) {
   /* Галерея изображений */
@@ -285,6 +305,9 @@ watch(locale, (newLocale) => {
 
 /* Мобильные устройства (до 600px) */
 @media (max-width: 600px) {
+  .container {
+    margin-top: 80px;
+  }
   /* Галерея изображений */
   .gallery-images {
     flex-direction: column;
@@ -311,26 +334,34 @@ watch(locale, (newLocale) => {
 
   /* Иконки с описаниями */
   .industries {
-    flex-wrap: wrap;
-    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 0 10px; /* Уменьшаем боковые отступы */
+    gap: 0; /* Убираем зазор между элементами */
 
     .industry-item {
-      flex: 0 0 calc(50% - 16px);
-      margin: 8px;
+      flex: 0 0 calc(20% - 8px); /* 20% ширины минус отступы */
+      margin: 4px; /* Уменьшаем отступы */
+      text-align: center;
     }
 
     .industry-icon {
-      max-width: 60px;
+      max-width: 50px; /* Уменьшаем размер иконки */
+      margin-bottom: 5px;
     }
 
     .industry-name {
-      font-size: 14px;
+      font-size: 10px; /* Уменьшаем размер шрифта */
     }
   }
 
   /* Заголовок */
-  .section-title {
-    font-size: 32px;
+  .section-header {
+    .section-title {
+      font-size: 36px;
+    }
   }
 
   /* Кнопка */

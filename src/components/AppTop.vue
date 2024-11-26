@@ -1,6 +1,6 @@
 <template>
   <v-container class="container" fluid>
-    <v-row>
+    <v-row class="top-row">
       <!-- Левая текстовая секция -->
       <v-col cols="12" md="5" class="text-section">
         <div class="upper-title">
@@ -30,7 +30,7 @@
     </v-row>
 
     <!-- Секция со статистикой -->
-    <v-row class="stats-section" justify="center" align="center">
+    <v-row class="stats-section top-row" justify="center" align="center">
       <v-col cols="12" md="3" class="stat">
         <div class="iwex-col">
           <span class="iwex">{{ $t("appTop.companyName") }}</span>
@@ -72,6 +72,7 @@ function navigateToContact() {
 .text-section {
   text-align: left;
   margin-top: 60px;
+  box-sizing: border-box;
 }
 
 .upper-title {
@@ -136,18 +137,21 @@ function navigateToContact() {
 
 .stats-section {
   margin-top: 20px;
+  box-sizing: border-box;
+  padding: 0 8px;
 }
 
 .stat {
   text-align: center;
   h2 {
-    font-size: 48px;
+    font-size: 36px;
     font-weight: bold;
     margin: 0;
     color: #ffcc01;
+    font-family: "Epilogue", sans-serif;
   }
   p {
-    font-size: 16px;
+    font-size: 12px;
     color: #515151;
     font-family: "Epilogue", sans-serif;
     font-weight: 700;
@@ -202,6 +206,14 @@ function navigateToContact() {
 }
 
 @media (max-width: 600px) {
+  .top-row {
+    width: 95%;
+  }
+  .text-section {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
   .upper-title {
     justify-content: center;
   }

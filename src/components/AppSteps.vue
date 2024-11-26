@@ -18,8 +18,8 @@
           v-for="(step, index) in steps"
           :key="index"
           :class="getSlideClass(index)"
-          @swipeleft="nextSlide"
-          @swiperight="prevSlide"
+          @touchstart="handleTouchStart"
+          @touchend="handleTouchEnd"
         >
           <div
             class="step-card"
@@ -40,9 +40,9 @@
     <div class="carousel-navigation">
       <div class="carousel-dots">
         <span
-          v-for="(dot, index) in steps.length"
+          v-for="index in steps.length"
           :key="index"
-          :class="{ active: index === carouselIndex }"
+          :class="{ active: index - 1 === carouselIndex }"
         ></span>
       </div>
       <div class="carousel-buttons">
@@ -60,6 +60,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
+import { useWindowSize } from "@vueuse/core"; // Для отслеживания ширины экрана
 
 // Импортируем иконки
 import starIcon from "@/assets/star.svg";
@@ -116,14 +117,47 @@ function nextSlide() {
   carouselIndex.value = (carouselIndex.value + 1) % steps.value.length;
 }
 
+// Отслеживание ширины экрана
+const { width } = useWindowSize();
+const isMobile = computed(() => width.value <= 700);
+
 // Функция определения класса для слайда
 function getSlideClass(index: number) {
-  if (index === carouselIndex.value) {
-    return "active-slide";
-  } else if (index === (carouselIndex.value + 1) % steps.value.length) {
-    return "next-slide";
+  if (isMobile.value) {
+    // Для мобильных устройств показываем только активный слайд
+    return index === carouselIndex.value ? "active-slide" : "hidden-slide";
   } else {
-    return "hidden-slide";
+    // Для десктопов показываем активный и следующий слайды
+    if (index === carouselIndex.value) {
+      return "active-slide";
+    } else if (index === (carouselIndex.value + 1) % steps.value.length) {
+      return "next-slide";
+    } else {
+      return "hidden-slide";
+    }
+  }
+}
+
+// Логика обработки свайпа
+let touchStartX = 0;
+
+function handleTouchStart(event: TouchEvent) {
+  touchStartX = event.changedTouches[0].screenX;
+}
+
+function handleTouchEnd(event: TouchEvent) {
+  const touchEndX = event.changedTouches[0].screenX;
+  const deltaX = touchEndX - touchStartX;
+
+  if (Math.abs(deltaX) > 50) {
+    // Минимальная дистанция свайпа для срабатывания
+    if (deltaX > 0) {
+      // Свайп вправо
+      prevSlide();
+    } else {
+      // Свайп влево
+      nextSlide();
+    }
   }
 }
 </script>
@@ -365,6 +399,9 @@ function getSlideClass(index: number) {
 
 /* Мобильные устройства */
 @media (max-width: 600px) {
+  .container {
+    margin-top: 80px;
+  }
   .section-header {
     width: 100%;
     margin-bottom: 30px;
@@ -374,25 +411,51 @@ function getSlideClass(index: number) {
     }
 
     .semicircle-icon {
-      width: 100px;
-      left: -5%;
+      display: none;
     }
   }
 
+  /* Устанавливаем автоматическую высоту и убираем переполнение */
   .carousel-wrapper {
-    height: 300px;
+    height: auto; /* Позволяем высоте адаптироваться под содержимое */
+    overflow: visible; /* Разрешаем отображение всего содержимого */
+    display: flex;
+    justify-content: center;
   }
 
+  /* Упрощаем стили для .carousel-item */
+  .carousel-item {
+    position: relative; /* Изменяем с absolute на relative */
+    top: auto;
+    left: auto;
+    width: 90%;
+    transform: none; /* Убираем трансформации */
+    opacity: 1; /* Убеждаемся, что элемент видимый */
+  }
+
+  /* Убираем трансформации для активного слайда */
+  .active-slide {
+    transform: none;
+  }
+
+  /* Скрываем неактивные слайды */
+  .next-slide,
+  .hidden-slide {
+    display: none;
+  }
+
+  /* Обновляем стили карточки */
   .step-card {
     padding: 15px;
     max-width: 100%;
   }
 
+  /* Корректируем позиционирование иконки */
   .active-card .icon-wrapper {
     width: 80px;
     height: 80px;
-    top: -40px;
-    left: -40px;
+    top: 10px; /* Сдвигаем иконку вниз внутри карточки */
+    left: 10px;
   }
 
   .active-card .inner-icon {
@@ -400,13 +463,14 @@ function getSlideClass(index: number) {
     height: 30px;
   }
 
+  /* Регулируем отступы заголовка */
   .active-card .step-title {
-    margin-top: 60px;
+    margin-top: 80px; /* Регулируйте по необходимости */
   }
 
   .step-title {
     font-size: 18px;
-    margin-top: 60px;
+    margin-top: 80px; /* Должно совпадать с margin-top выше */
     margin-bottom: 10px;
   }
 
@@ -414,23 +478,6 @@ function getSlideClass(index: number) {
     font-size: 14px;
   }
 
-  .carousel-item {
-    width: 90%;
-  }
-
-  .active-slide {
-    transform: translateX(-50%) translateZ(0px) scale(0.8);
-  }
-
-  .next-slide {
-    transform: translateX(20%) translateZ(-100px) scale(0.7);
-  }
-
   /* Скрываем иконку на очень маленьких экранах */
-  @media (max-width: 400px) {
-    .semicircle-icon {
-      display: none;
-    }
-  }
 }
 </style>

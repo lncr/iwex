@@ -15,10 +15,12 @@
       <div class="service-card" v-for="(card, index) in cards" :key="card.id">
         <div
           class="card-inner"
-          @mouseover="hover = index"
-          @mouseleave="hover = null"
+          @mouseenter="handleMouseEnter(index)"
+          @mouseleave="handleMouseLeave(index)"
           @click="toggleFlip(index)"
-          :class="{ 'is-flipped': hover === index }"
+          :class="{
+            'is-flipped': hoverIndex === index || flipped.has(index),
+          }"
         >
           <!-- Передняя сторона карточки -->
           <div class="card-front">
@@ -60,8 +62,11 @@ import api from "@/plugins/api";
 import { ref, onMounted, watch } from "vue";
 import { useI18n } from "vue-i18n";
 
-// Состояние для анимации при наведении
-const hover = ref<number | null>(null);
+// Состояние для наведения
+const hoverIndex = ref<number | null>(null);
+
+// Состояние для перевёрнутых карточек
+const flipped = ref<Set<number>>(new Set());
 
 // Состояние для карточек
 const cards = ref<Array<any>>([]);
@@ -74,7 +79,7 @@ function getIconUrl(iconPath: string) {
   if (iconPath.startsWith("http")) {
     return iconPath;
   }
-  const baseUrl = process.env.VUE_APP_BASE_URL || "http://159.223.21.167";
+  const baseUrl = process.env.VUE_APP_BASE_URL || "https://iwex-germany.de/";
   return `${baseUrl}${iconPath}`;
 }
 
@@ -104,10 +109,27 @@ watch(locale, (newLocale) => {
 
 // Функция для переключения переворота карточки по клику
 function toggleFlip(index: number) {
-  if (hover.value === index) {
-    hover.value = null;
+  if (flipped.value.has(index)) {
+    flipped.value.delete(index);
   } else {
-    hover.value = index;
+    flipped.value.add(index);
+  }
+  // Обновляем реактивность
+  flipped.value = new Set(flipped.value);
+}
+
+// Функции для обработки наведения
+function handleMouseEnter(index: number) {
+  // Только для устройств с поддержкой наведения
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    hoverIndex.value = index;
+  }
+}
+
+function handleMouseLeave(index: number) {
+  // Только для устройств с поддержкой наведения
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    hoverIndex.value = null;
   }
 }
 </script>
@@ -167,11 +189,11 @@ function toggleFlip(index: number) {
 /* Адаптивность для мобильных устройств */
 @media (max-width: 600px) {
   .section-title span {
-    font-size: 32px;
+    font-size: 26px;
   }
 
   .section-description {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .card-title {
@@ -185,6 +207,33 @@ function toggleFlip(index: number) {
   .card-back-content .card-back-title {
     font-size: 24px;
   }
+  .card-back {
+    display: none;
+  }
+  .card-inner.is-flipped .card-back {
+    display: flex;
+  }
+  .card-front {
+    background-color: #ffffff;
+    padding: 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 2;
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 20px;
+      object-fit: contain;
+    }
+    .card-title {
+      font-size: 18px;
+    }
+    .card-description {
+      font-size: 16px;
+    }
+  }
 }
 
 .card-inner {
@@ -193,25 +242,14 @@ function toggleFlip(index: number) {
   height: 100%;
   min-height: 400px;
   text-align: left;
-  transition: transform 0.6s;
+  transition: transform 0.8s ease-in-out; /* Увеличена продолжительность и плавность */
   transform-style: preserve-3d;
+  /* Сбрасываем трансформацию по умолчанию */
+  transform: rotateY(0deg);
 }
 
 .card-inner.is-flipped {
   transform: rotateY(180deg);
-}
-
-/* Убираем эффект переворота на мобильных устройствах */
-@media (hover: none) and (pointer: coarse) {
-  .card-inner {
-    transform: none !important;
-  }
-  .card-front,
-  .card-back {
-    position: relative;
-    transform: none !important;
-    backface-visibility: visible;
-  }
 }
 
 .card-front,
@@ -232,6 +270,7 @@ function toggleFlip(index: number) {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  z-index: 2;
 }
 
 .card-back {
@@ -242,7 +281,9 @@ function toggleFlip(index: number) {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
 }
+
 .card-back::before {
   content: "";
   background: rgba(0, 0, 0, 0.3); /* Тёмный оверлей для контраста текста */
@@ -298,5 +339,26 @@ function toggleFlip(index: number) {
 .card-back .card-description {
   color: #ffffff;
   text-align: center;
+}
+
+/* Отключаем переворот на устройствах без поддержки наведения */
+@media (hover: none) and (pointer: coarse) {
+  .card-inner.is-flipped {
+    transform: rotateY(180deg);
+  }
+  .card-inner {
+    transform: rotateY(0deg);
+  }
+  .card-front,
+  .card-back {
+    backface-visibility: hidden;
+  }
+}
+
+/* Дополнительные стили для мобильных устройств */
+@media (max-width: 960px) {
+  .card-inner.is-flipped {
+    transform: rotateY(180deg);
+  }
 }
 </style>
