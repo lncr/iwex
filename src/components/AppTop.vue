@@ -69,7 +69,7 @@ function navigateToContact() {
 </script>
 
 <style scoped lang="scss">
-/* Определение ключевых кадров для улучшенной анимации */
+/* Определение ключевых кадров для анимации fadeInUp */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -132,26 +132,29 @@ function navigateToContact() {
   overflow: hidden; /* Чтобы изображения не выходили за пределы контейнера */
 }
 
+/* Анимация для employee-image */
 .employee-image {
   width: 100%;
   height: 100%;
   display: block;
   border-radius: 8px;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  animation: fadeInUp 1.5s ease-out forwards;
+  animation-delay: 0.3s; /* Задержка перед началом анимации */
 }
 
+/* Анимация для overlay-image */
 .overlay-image {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   border-radius: 8px;
-}
-
-.image-section {
   opacity: 0;
   transform: translateY(20px) scale(0.95);
   animation: fadeInUp 1.5s ease-out forwards;
-  animation-delay: 0.3s; /* Задержка перед началом анимации */
+  animation-delay: 1.3s; /* Задержка перед началом анимации */
 }
 
 .stats-section {
