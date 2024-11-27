@@ -87,7 +87,16 @@
   },
   "impressum": {
     "title": "Impressum",
-    "text": "<p><strong>IWEX Germany GmbH</strong><br>70 Hahnstr.<br>60528 Frankfurt</p><br><p>Handelsregister: HRB 128023<br>Registergericht: Amtsgericht Frankfurt am Main</p><br><p><strong>Vertreten durch:</strong><br>Nurdin Sheishenov</p><br><p><strong>Kontakt</strong></p><p>Telefon: 01792078900<br>E-Mail: info@iwex-personal.de</p><br><p><strong>Umsatzsteuer-ID</strong></p><p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: DE354603798</p><br><p><strong>Verbraucherstreitbeilegung/Universalschlichtungsstelle</strong></p><p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>"
+    "text2": "Handelsregister:",
+    "text3": "Registergericht: Amtsgericht Frankfurt am Main",
+    "text4": "Vertreten durch:",
+    "text5": "Kontakt",
+    "text6": "Telefon:",
+    "text7": "E-Mail:",
+    "text8": "Umsatzsteuer-ID",
+    "text9": "Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:",
+    "text10": "Verbraucherstreitbeilegung/Universalschlichtungsstelle",
+    "text11": "Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
   },
 
   "button": "Jetzt Personal anfragen"

@@ -87,7 +87,16 @@
   },
   "impressum": {
     "title": "Impressum",
-    "text": "<p><strong>IWEX Germany GmbH</strong><br>70 Hahnstr.<br>60528 Frankfurt</p><br><p>Commercial Register: HRB 128023<br>Register Court: Frankfurt am Main District Court</p><br><p><strong>Represented by:</strong><br>Nurdin Sheishenov</p><br><p><strong>Contact</strong></p><p>Phone: 01792078900<br>Email: info@iwex-personal.de</p><br><p><strong>VAT ID</strong></p><p>VAT Identification Number according to § 27 a of the Value Added Tax Act: DE354603798</p><br><p><strong>Consumer Dispute Resolution/Universal Arbitration</strong></p><p>We are not willing or obligated to participate in dispute resolution procedures before a consumer arbitration board.</p>"
+    "text2": "Commercial Register:",
+    "text3": "Register Court: Frankfurt am Main District Court",
+    "text4": "Represented by:",
+    "text5": "Contact",
+    "text6": "Phone:",
+    "text7": "Email:",
+    "text8": "VAT ID",
+    "text9": "VAT Identification Number according to § 27 a of the Value Added Tax Act:",
+    "text10": "Consumer Dispute Resolution/Universal Arbitration",
+    "text11": "We are not willing or obligated to participate in dispute resolution procedures before a consumer arbitration board."
   },
 
   "button": "Request staff now"

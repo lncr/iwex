@@ -2,7 +2,47 @@
   <div class="impressum">
     <div class="content">
       <h1>{{ $t("impressum.title") }}</h1>
-      <div v-html="$t('impressum.text')"></div>
+      <div>
+        <p>
+          <strong>IWEX Germany GmbH</strong><br />70 Hahnstr.<br />60528
+          Frankfurt
+        </p>
+        <br />
+        <p>
+          {{ this.$t("impressum.text2") }} HRB 128023<br />{{
+            this.$t("impressum.text3")
+          }}
+        </p>
+        <br />
+        <p>
+          <strong>{{ this.$t("impressum.text4") }}</strong
+          ><br />Nurdin Sheishenov
+        </p>
+        <br />
+        <p>
+          <strong>{{ this.$t("impressum.text5") }}</strong>
+        </p>
+        <p>
+          {{ this.$t("impressum.text6") }} 01792078900<br />{{
+            this.$t("impressum.text7")
+          }}
+          info@iwex-personal.de
+        </p>
+        <br />
+        <p>
+          <strong>{{ this.$t("impressum.text8") }}</strong>
+        </p>
+        <p>
+          {{ this.$t("impressum.text9") }}
+        </p>
+        <br />
+        <p>
+          <strong>{{ this.$t("impressum.text10") }}</strong>
+        </p>
+        <p>
+          {{ this.$t("impressum.text11") }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -35,8 +75,7 @@ h1 {
 }
 
 p {
-  font-size: 48px;
-  line-height: 65px;
+  font-size: 18px;
   font-weight: 500;
   font-family: Epilogue;
   margin-bottom: 16px;

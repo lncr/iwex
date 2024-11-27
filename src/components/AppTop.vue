@@ -69,6 +69,18 @@ function navigateToContact() {
 </script>
 
 <style scoped lang="scss">
+/* Определение ключевых кадров для улучшенной анимации */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .text-section {
   text-align: left;
   margin-top: 60px;
@@ -133,6 +145,13 @@ function navigateToContact() {
   left: 0;
   height: 100%;
   border-radius: 8px;
+}
+
+.image-section {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  animation: fadeInUp 1.5s ease-out forwards;
+  animation-delay: 0.3s; /* Задержка перед началом анимации */
 }
 
 .stats-section {
