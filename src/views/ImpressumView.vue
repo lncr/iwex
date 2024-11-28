@@ -9,38 +9,38 @@
         </p>
         <br />
         <p>
-          {{ this.$t("impressum.text2") }} HRB 128023<br />{{
-            this.$t("impressum.text3")
+          {{ $t("impressum.text2") }} HRB 128023<br />{{
+            $t("impressum.text3")
           }}
         </p>
         <br />
         <p>
-          <strong>{{ this.$t("impressum.text4") }}</strong
+          <strong>{{ $t("impressum.text4") }}</strong
           ><br />Nurdin Sheishenov
         </p>
         <br />
         <p>
-          <strong>{{ this.$t("impressum.text5") }}</strong>
+          <strong>{{ $t("impressum.text5") }}</strong>
         </p>
         <p>
-          {{ this.$t("impressum.text6") }} 01792078900<br />{{
-            this.$t("impressum.text7")
+          {{ $t("impressum.text6") }} 01792078900<br />{{
+            $t("impressum.text7")
           }}
           info@iwex-personal.de
         </p>
         <br />
         <p>
-          <strong>{{ this.$t("impressum.text8") }}</strong>
+          <strong>{{ $t("impressum.text8") }}</strong>
         </p>
         <p>
-          {{ this.$t("impressum.text9") }}
+          {{ $t("impressum.text9") }}
         </p>
         <br />
         <p>
-          <strong>{{ this.$t("impressum.text10") }}</strong>
+          <strong>{{ $t("impressum.text10") }}</strong>
         </p>
         <p>
-          {{ this.$t("impressum.text11") }}
+          {{ $t("impressum.text11") }}
         </p>
       </div>
     </div>
