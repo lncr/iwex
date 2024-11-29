@@ -219,7 +219,6 @@ function handleTouchEnd(event: TouchEvent) {
 
 .next-slide {
   transform: translateX(20%) translateZ(-150px) scale(0.9);
-  opacity: 0.7;
   z-index: 2;
 }
 
@@ -238,6 +237,10 @@ function handleTouchEnd(event: TouchEvent) {
   margin: 0 auto;
   position: relative;
   overflow: visible;
+}
+
+.next-slide .step-card {
+  background-color: rgba(222, 222, 222, 1);
 }
 
 .icon-wrapper {
@@ -326,11 +329,6 @@ function handleTouchEnd(event: TouchEvent) {
 
 .carousel-buttons .v-btn {
   margin: 0 5px;
-}
-
-/* Скрываем предыдущий слайд */
-.prev-slide {
-  display: none;
 }
 
 /* Планшеты и ноутбуки */
@@ -477,7 +475,5 @@ function handleTouchEnd(event: TouchEvent) {
   .step-description {
     font-size: 14px;
   }
-
-  /* Скрываем иконку на очень маленьких экранах */
 }
 </style>

@@ -98,6 +98,13 @@
     "text10": "Consumer Dispute Resolution/Universal Arbitration",
     "text11": "We are not willing or obligated to participate in dispute resolution procedures before a consumer arbitration board."
   },
+  "cookieConsent": {
+    "title": "We Use Cookies",
+    "message": "We use cookies on our website. By clicking 'Accept All,' you agree to the storage of cookies on your device to enhance the performance of our website, improve functionality, analyze website usage, and support our marketing efforts. Your personal data may be used for personalizing advertisements.",
+    "message2": "If you click 'Reject All,' only strictly necessary cookies will be stored on your device. No other cookies will be used. Please note, however, that selecting this option may result in a less optimized website experience.",
+    "reject": "Reject All",
+    "accept": "Accept All"
+  },
 
   "button": "Request staff now"
 }

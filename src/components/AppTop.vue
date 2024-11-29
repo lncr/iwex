@@ -235,19 +235,21 @@ function navigateToContact() {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    padding-left: 20px;
   }
   .upper-title {
-    justify-content: center;
+    justify-content: flex-start;
   }
   .title {
-    text-align: center;
+    text-align: left;
   }
   .description {
-    text-align: center;
+    text-align: left;
   }
   .home-btn {
-    display: block;
-    margin: 0 auto;
+    display: flex;
+    max-width: 240px;
+    justify-content: flex-start;
   }
   .stat {
     .iwex-col {

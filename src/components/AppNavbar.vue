@@ -38,12 +38,15 @@
         <v-col cols="auto">
           <div class="right-items">
             <!-- Переключатель языка -->
-            <v-menu offset-y>
+            <v-menu offset-y v-model="menuOpen">
               <template v-slot:activator="{ props }">
                 <v-btn v-bind="props" class="language-btn">
                   <v-avatar size="24">
                     <v-img :src="currentLanguage?.flag"></v-img>
                   </v-avatar>
+                  <v-icon class="ml-2">
+                    {{ menuOpen ? "mdi-chevron-up" : "mdi-chevron-down" }}
+                  </v-icon>
                 </v-btn>
               </template>
               <v-list>
@@ -98,7 +101,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from "vue";
+import { ref, watch, onMounted, nextTick } from "vue";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import germanyFlag from "@/assets/germany-flag.png";
@@ -113,6 +116,9 @@ const { locale, t } = useI18n();
 
 // Состояние навигационного ящика
 const drawer = ref(false);
+
+// Состояние меню языка
+const menuOpen = ref(false);
 
 // Для мобильных устройств, включаем "Contact Us"
 const mobileNavItems = [
@@ -175,20 +181,41 @@ function changeLanguage(lang: any) {
 }
 
 function scrollToSection(sectionId: string) {
-  const section = document.getElementById(sectionId);
-  if (section) {
-    section.scrollIntoView({
-      behavior: "smooth", // Плавная прокрутка
-      block: "start", // Прокрутка к началу блока
+  if (router.currentRoute.value.path !== "/") {
+    router.push("/").then(() => {
+      nextTick(() => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      });
     });
+  } else {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   }
 }
 
 function handleMobileNavigation(path: any, sectionId?: string) {
   drawer.value = false; // Закрываем бургер-меню
-  console.log(path, sectionId);
   if (sectionId) {
-    scrollToSection(sectionId); // Прокручиваем к секции
+    if (router.currentRoute.value.path !== "/") {
+      router.push("/").then(() => {
+        nextTick(() => {
+          scrollToSection(sectionId);
+        });
+      });
+    } else {
+      scrollToSection(sectionId);
+    }
   } else {
     router.push(path).then(() => {
       window.scrollTo({
@@ -261,6 +288,9 @@ function navigateToContact() {
 
 .language-btn {
   margin-left: 16px;
+  display: flex;
+  align-items: center;
+  text-transform: none;
 }
 
 .language-item {
@@ -297,6 +327,10 @@ function navigateToContact() {
 .v-list-item-title {
   margin-left: 8px;
   color: #383838;
+}
+
+.v-icon {
+  font-size: 24px;
 }
 
 /* Адаптивные стили */

@@ -184,10 +184,16 @@ function handleMouseLeave(index: number) {
   .service-card {
     width: 100%; /* Одна карточка в ряду */
   }
+  .card-inner.is-flipped {
+    transform: rotateY(180deg);
+  }
 }
 
 /* Адаптивность для мобильных устройств */
 @media (max-width: 600px) {
+  .container {
+    margin-top: 80px;
+  }
   .section-title span {
     font-size: 26px;
   }
@@ -352,13 +358,6 @@ function handleMouseLeave(index: number) {
   .card-front,
   .card-back {
     backface-visibility: hidden;
-  }
-}
-
-/* Дополнительные стили для мобильных устройств */
-@media (max-width: 960px) {
-  .card-inner.is-flipped {
-    transform: rotateY(180deg);
   }
 }
 </style>
