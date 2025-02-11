@@ -1,6 +1,6 @@
 <template>
   <div class="v-application">
-    <!-- Успешное или Ошибочное Сообщение -->
+    <!-- Сообщение об успехе или ошибке -->
     <v-alert
       v-if="showAlert"
       :type="alertType"
@@ -13,15 +13,15 @@
     </v-alert>
 
     <v-container class="form-container">
-      <!-- Контент формы -->
+      <!-- Заголовок и описание формы -->
       <v-row>
         <v-col cols="12">
           <h2 class="title">{{ t("form.title") }}</h2>
-          <p class="description">
-            {{ t("form.description") }}
-          </p>
+          <p class="description">{{ t("form.description") }}</p>
         </v-col>
       </v-row>
+
+      <!-- Форма -->
       <v-form v-model="valid" ref="form">
         <v-row>
           <!-- Поле "Имя" -->
@@ -35,6 +35,7 @@
               :rules="[rules.required]"
             ></v-text-field>
           </v-col>
+
           <!-- Поле "Email" -->
           <v-col cols="12">
             <v-text-field
@@ -46,6 +47,7 @@
               :rules="[rules.required, rules.email]"
             ></v-text-field>
           </v-col>
+
           <!-- Поле "Телефон" -->
           <v-col cols="12">
             <v-text-field
@@ -57,6 +59,7 @@
               :rules="[rules.required, rules.phone]"
             ></v-text-field>
           </v-col>
+
           <!-- Поле "Тема" -->
           <v-col cols="12">
             <v-text-field
@@ -68,6 +71,7 @@
               :rules="[rules.required]"
             ></v-text-field>
           </v-col>
+
           <!-- Поле "Сообщение" -->
           <v-col cols="12">
             <v-textarea
@@ -78,6 +82,7 @@
               rows="1"
             ></v-textarea>
           </v-col>
+
           <!-- Чекбокс "Согласие на обработку данных" -->
           <v-col cols="12">
             <v-checkbox
@@ -88,6 +93,7 @@
               class="checkbox-label"
             ></v-checkbox>
           </v-col>
+
           <!-- Кнопка "Отправить" -->
           <v-col cols="12" class="btn">
             <v-btn
@@ -112,12 +118,11 @@ import api from "@/plugins/api";
 // Получаем функцию перевода
 const { t } = useI18n();
 
-// Ссылка на форму для доступа к методам формы
+// Ссылка на форму
 const form = ref(null);
-
-// Реактивные переменные
 const valid = ref(false);
 
+// Данные формы
 const formData = reactive({
   name: "",
   email: "",
@@ -127,15 +132,13 @@ const formData = reactive({
   privacy: false,
 });
 
-// Состояния для алертов
+// Состояния для отображения алерта
 const showAlert = ref(false);
 const alertType = ref("success"); // "success" или "error"
 const alertMessage = ref("");
-
-// Переменная для хранения ID таймера
 let alertTimeout = null;
 
-// Правила валидации с использованием перевода
+// Правила валидации
 const rules = computed(() => ({
   required: (value) => !!value || t("form.validation.required"),
   email: (value) => /.+@.+\..+/.test(value) || t("form.validation.email"),
@@ -145,50 +148,51 @@ const rules = computed(() => ({
 
 // Функция отправки формы
 const submitForm = async () => {
-  console.log("submitForm called");
   if (form.value && form.value.validate()) {
-    console.log("Form is valid");
     try {
-      console.log("Sending data:", formData);
-      const response = await api.post("/api/v1/contacts/", {
+      // Отправка данных через API
+      await api.post("/api/v1/contacts/", {
         full_name: formData.name,
         email: formData.email,
         phone_number: formData.phone,
         subject: formData.subject,
         message: formData.message,
       });
-      console.log("API call successful", response);
+
+      // Отображение сообщения об успехе
       alertType.value = "success";
       alertMessage.value = `<p>${t("form.success")}</p>`;
       showAlert.value = true;
+
+      // Сброс формы
       resetForm();
-      // Запускаем таймер для скрытия алерта через 5 секунд
       startAlertTimer();
+
+      // Вызов функции конверсии из index.html
+      if (typeof window.gtag_report_conversion === "function") {
+        window.gtag_report_conversion();
+      } else {
+        console.error("gtag_report_conversion не определена");
+      }
     } catch (error) {
       console.error("Ошибка при отправке формы:", error);
       alertType.value = "error";
-      // Обработка ошибок, полученных с бэкенда
+      // Обработка ошибок от бэкенда
       if (error.response && error.response.data) {
         const errors = error.response.data;
         const messages = [];
-
         for (const key in errors) {
           if (Array.isArray(errors[key])) {
             errors[key].forEach((msg) => {
-              if (key === "0") {
-                // Общие ошибки без привязки к полям
-                messages.push(`${msg}`);
-              } else {
-                // Ошибки, привязанные к полям формы
-                const fieldName = t(`form.fields.${key}`) || key;
-                messages.push(`${fieldName}: ${msg}`);
-              }
+              // Если ошибка не привязана к конкретному полю
+              const fieldName =
+                key !== "0" ? t(`form.fields.${key}`) || key : "";
+              messages.push(fieldName ? `${fieldName}: ${msg}` : msg);
             });
           } else if (typeof errors[key] === "string") {
-            messages.push(`${errors[key]}`);
+            messages.push(errors[key]);
           }
         }
-
         alertMessage.value = `<ul>${messages
           .map((msg) => `<li>${msg}</li>`)
           .join("")}</ul>`;
@@ -196,17 +200,15 @@ const submitForm = async () => {
         alertMessage.value = t("form.error");
       }
       showAlert.value = true;
-      // Запускаем таймер для скрытия алерта через 5 секунд
       startAlertTimer();
     }
   } else {
-    console.log("Form validation failed");
+    console.log("Валидация формы не пройдена");
   }
 };
 
 // Функция сброса формы
 const resetForm = () => {
-  console.log("resetForm called");
   formData.name = "";
   formData.email = "";
   formData.phone = "";
@@ -221,7 +223,6 @@ const resetForm = () => {
 // Функция закрытия алерта
 const closeAlert = () => {
   showAlert.value = false;
-  // Очистка таймера при ручном закрытии алерта
   if (alertTimeout) {
     clearTimeout(alertTimeout);
     alertTimeout = null;
@@ -230,18 +231,14 @@ const closeAlert = () => {
 
 // Функция запуска таймера для скрытия алерта
 const startAlertTimer = () => {
-  // Очистка предыдущего таймера, если он существует
-  if (alertTimeout) {
-    clearTimeout(alertTimeout);
-  }
-  // Запуск нового таймера
+  if (alertTimeout) clearTimeout(alertTimeout);
   alertTimeout = setTimeout(() => {
     showAlert.value = false;
     alertTimeout = null;
-  }, 5000); // 5000 миллисекунд = 5 секунд
+  }, 5000);
 };
 
-// Очистка таймера при уничтожении компонента
+// Очистка таймера при изменении состояния алерта
 watch(showAlert, (newVal) => {
   if (!newVal && alertTimeout) {
     clearTimeout(alertTimeout);
@@ -257,24 +254,24 @@ body,
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #333; /* Цвет фона для всей страницы */
+  background-color: #333;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
 }
 
 .alert-message {
   position: fixed;
-  top: 100px; /* Положение ниже навбара, скорректируйте при необходимости */
-  left: 50%; /* Центрируем по горизонтали */
+  top: 100px;
+  left: 50%;
   transform: translateX(-50%);
-  width: 300px; /* Увеличенная ширина */
-  z-index: 1000; /* Отображение поверх других элементов */
-  text-align: center; /* Центрирование текста */
-  font-size: 16px; /* Нормальный размер текста */
-  border-radius: 8px; /* Скругление углов */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Дополнительная тень */
-  opacity: 1; /* Начальная непрозрачность */
-  transition: opacity 0.5s ease, transform 0.5s ease; /* Плавные переходы */
+  width: 300px;
+  z-index: 1000;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  opacity: 1;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .alert-message .v-alert__content {
@@ -284,18 +281,17 @@ body,
   flex-direction: column;
 }
 
-/* Фон для контейнера формы */
 .form-container {
-  max-width: 600px; /* Ограничение ширины формы */
-  background-color: #444; /* Цвет фона контейнера */
-  color: #fff; /* Цвет текста */
+  max-width: 600px;
+  background-color: #444;
+  color: #fff;
   padding: 40px 50px;
   border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Тень контейнера */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .title {
-  color: rgba(255, 203, 0, 1); /* Цвет заголовка */
+  color: rgba(255, 203, 0, 1);
   text-align: start;
   font-size: 48px;
   margin-bottom: 20px;
@@ -340,15 +336,12 @@ body,
   .form-container {
     padding: 30px 40px;
   }
-
   .title {
     font-size: 36px;
   }
-
   .description {
     font-size: 24px;
   }
-
   .btn .button {
     font-size: 14px;
     padding: 8px 16px;
@@ -363,30 +356,25 @@ body,
     margin-left: 0;
     margin-right: 0;
   }
-
   .title {
     font-size: 28px;
     text-align: center;
   }
-
   .description {
     font-size: 18px;
     text-align: center;
   }
-
   .btn .button {
     font-size: 14px;
     padding: 8px 12px;
     width: auto;
   }
-
   .checkbox-label .v-label {
     font-size: 16px;
   }
-
   .alert-message {
-    width: 90%; /* Адаптивная ширина на мобильных */
-    top: 120px; /* Немного ниже для мобильных устройств */
+    width: 90%;
+    top: 120px;
   }
 }
 </style>
