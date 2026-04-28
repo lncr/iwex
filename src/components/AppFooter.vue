@@ -59,10 +59,10 @@
             {{ $t("footer.adresse") }}:</span
           >
           <p>IWEX Germany GmbH</p>
-          <p class="street">Hahnstraße 70</p>
-          <p>60528 Frankfurt am Main</p>
+          <p class="street">Zeilweg 44</p>
+          <p>60439 Frankfurt am Main</p>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.337218675491!2d8.645756815674943!3d50.08273577942562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bce7eb80000001%3A0x6e3b4c5d8d8b8d8!2sHahnstra%C3%9Fe%2070%2C%2060528%20Frankfurt%20am%20Main%2C%20Germany!5e0!3m2!1sen!2sde!4v1600000000000!5m2!1sen!2sde"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2557.4!2d8.6497!3d50.1578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bd0960b0a2a5e7%3A0x2b8e0f3c8e7a1d0!2sZeilweg%2044%2C%2060439%20Frankfurt%20am%20Main%2C%20Germany!5e0!3m2!1sen!2sde!4v1700000000000!5m2!1sen!2sde"
             width="100%"
             height="100%"
             frameborder="0"
